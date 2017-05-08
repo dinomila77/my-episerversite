@@ -1,0 +1,43 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using EPiServer.Core
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title - MyEpiserverSite</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container body-content">
+    @RenderBody()
+</div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <footer>
+                <p>&copy; @DateTime.Now.Year - MyEpiserverSite</p>
+            </footer>
+        </div>
+    </nav>
+</body>
+</html>

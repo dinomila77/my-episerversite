@@ -3,6 +3,9 @@
 
 @model MyEpiserverSite.Models.Pages.ArticlePage
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <h1 @Html.EditAttributes(x => x.PageName)>@Model.PageName</h1>
 <h3>
