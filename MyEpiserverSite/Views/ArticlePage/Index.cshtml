@@ -1,16 +1,17 @@
 ﻿@using EPiServer.Core
+@using EPiServer.Web
 @using EPiServer.Web.Mvc.Html
 
 @model MyEpiserverSite.Models.Pages.ArticlePage
 
-@{
+@*@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}*@
 
 <h1 @Html.EditAttributes(x => x.PageName)>@Model.PageName</h1>
-<h3>
+<textarea>
     @Html.PropertyFor(m=> m.Introduction)
-</h3>
+</textarea>
 <div>
     @Html.PropertyFor(m => m.MainBody)
 </div>
