@@ -10,8 +10,11 @@
 
 <h1 @Html.EditAttributes(x => x.PageName)>@Model.PageName</h1>
 <textarea>
-    @Html.PropertyFor(m=> m.Introduction)
+    @Html.DisplayFor(m=> m.Introduction)
 </textarea>
 <div>
     @Html.PropertyFor(m => m.MainBody)
+</div>
+<div>
+    @Html.PropertyFor(m => m.Image)
 </div>
