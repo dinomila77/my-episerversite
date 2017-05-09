@@ -7,8 +7,8 @@ using EPiServer.DataAnnotations;
 
 namespace MyEpiserverSite.Models.Blocks
 {
-    [ContentType(DisplayName = "RegisterBlock", GUID = "cc4b246e-4c66-4907-8a8d-92061e3ec78a", Description = "")]
-    public class RegisterBlock : SiteBlockData
+    [ContentType(DisplayName = "UserBlock", GUID = "cc4b246e-4c66-4907-8a8d-92061e3ec78a", Description = "")]
+    public class UserBlock : SiteBlockData
     {
 
         //[CultureSpecific]
