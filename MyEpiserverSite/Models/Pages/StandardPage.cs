@@ -4,6 +4,7 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
+using EPiServer.Web;
 
 namespace MyEpiserverSite.Models.Pages
 {
@@ -23,5 +24,13 @@ namespace MyEpiserverSite.Models.Pages
             GroupName = SystemTabNames.Content,
             Order = 320)]
         public virtual ContentArea MainContentArea { get; set; }
+
+        [UIHint(UIHint.Image)]
+        [Display(Name = "Main Image")]
+        public virtual ContentReference Image { get; set; }
+
+        //[UIHint(UIHint.MediaFile)]
+        //[Display(Name = "Main Image")]
+        //public virtual ContentReference Image { get; set; }
     }
 }
