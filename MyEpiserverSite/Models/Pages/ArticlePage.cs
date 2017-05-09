@@ -4,6 +4,7 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
+using EPiServer.Web;
 
 namespace MyEpiserverSite.Models.Pages
 {
@@ -11,6 +12,8 @@ namespace MyEpiserverSite.Models.Pages
     public class ArticlePage : StandardPage
     {
         public virtual string Heading { get; set; }
+
+        [UIHint(UIHint.Textarea)]
         public virtual string Introduction { get; set; }
     }
 }
