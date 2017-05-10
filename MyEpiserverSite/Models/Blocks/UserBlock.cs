@@ -21,31 +21,31 @@ namespace MyEpiserverSite.Models.Blocks
 
         [Required]
         [Display(Name ="First name")]
-        public string FirstName { get; set; }
+        public virtual string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last name")]
-        public string LastName { get; set; }
+        public virtual string LastName { get; set; }
 
         [Required]
-        public string Address { get; set; }
+        public virtual string Address { get; set; }
 
         [Required]
         [Display(Name = "Zip code")]
-        public string ZipCode { get; set; }
+        public virtual string ZipCode { get; set; }
 
         [Required]
-        public string City { get; set; }
+        public virtual string City { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
 
         [Required]
         [Display(Name = "Personal number")]
-        public string PersonalNumber { get; set; }
+        public virtual string PersonalNumber { get; set; }
 
         [Display(Name = "Phone number")]
-        public string PhoneNumber { get; set; }
+        public virtual string PhoneNumber { get; set; }
     }
 }
