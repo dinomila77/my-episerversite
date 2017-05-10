@@ -5,7 +5,7 @@
 
 
 <h1>@Model.Heading</h1>
-
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
 <p>
     @Html.Label(@Model.Address1Text)
     <input type="text" name="AddressLine1" value="@Model.Address.AddressLine1">
