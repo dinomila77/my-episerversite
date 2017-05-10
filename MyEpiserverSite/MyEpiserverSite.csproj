@@ -310,6 +310,7 @@
     <Content Include="Views\UserBlock\_UserBasic.cshtml" />
     <Content Include="Views\UserBlock\_UserDetails.cshtml" />
     <Content Include="Views\FormPage\Index.cshtml" />
+    <Content Include="Views\Shared\ShippingAddressBlock.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
