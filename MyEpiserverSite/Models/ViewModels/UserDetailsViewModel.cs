@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MyEpiserverSite.Models.ViewModels
 {
-    public class UserDetailsBlockModel
+    public class UserDetailsViewModel
     {
         [Required]
         [Display(Name = "First name")]

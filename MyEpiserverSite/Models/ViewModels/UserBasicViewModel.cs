@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MyEpiserverSite.Models.ViewModels
 {
-    public class UserBasicBlockModel
+    public class UserBasicViewModel
     {
         [Required]
         [EmailAddress]
