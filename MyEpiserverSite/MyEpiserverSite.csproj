@@ -251,8 +251,8 @@
     <Compile Include="Models\Pages\SitePageData.cs" />
     <Compile Include="Models\Pages\StandardPage.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
-    <Compile Include="Models\ViewModels\UserBasicBlockModel.cs" />
-    <Compile Include="Models\ViewModels\UserDetailsBlockModel.cs" />
+    <Compile Include="Models\ViewModels\UserBasicViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +302,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Image.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MediaFile.cshtml" />
+    <Content Include="Views\UserBlock\Index.cshtml" />
+    <Content Include="Views\UserBlock\_UserBasic.cshtml" />
+    <Content Include="Views\UserBlock\_UserDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
