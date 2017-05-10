@@ -1,0 +1,19 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+
+@model MyEpiserverSite.Models.Pages.FormPage
+
+@using (Html.BeginForm("Save", "FormPage", FormMethod.Post))
+{
+
+    <div role="main" id="main" class="main row">
+
+        <div class="large-8 column">
+
+            @Html.PropertyFor(x => x.MainContentArea)
+
+        </div>
+    </div>
+
+    <button type="submit">Submit</button>
+}
