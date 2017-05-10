@@ -4,8 +4,11 @@ using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Framework.DataAnnotations;
+using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc;
 using MyEpiserverSite.Models.Pages;
+using MyEpiserverSite.Models;
+using MyEpiserverSite.Models.Blocks;
 
 namespace MyEpiserverSite.Controllers
 {
@@ -13,10 +16,26 @@ namespace MyEpiserverSite.Controllers
     {
         public ActionResult Index(FormPage currentPage)
         {
-            /* Implementation of action. You can create your own view model class that you pass to the view or
-             * you can pass the page type for simpler templates */
+            return View("Index",currentPage);
+        }
 
-            return View(currentPage);
+        public ActionResult Save(FormPage currentPage, ShippingAddress address)
+        {
+            if (currentPage.MainContentArea != null || currentPage.MainContentArea.Items.Any())
+            {
+                var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+
+                foreach (var item in currentPage.MainContentArea.Items)
+                {
+                    var shippingBlock = contentLoader.Get<ShippingAddressBlock>(item.ContentLink);
+
+                    if (shippingBlock != null)
+                    {
+                        shippingBlock.Address = address;
+                    }
+                }
+            }
+            return null;
         }
     }
 }
