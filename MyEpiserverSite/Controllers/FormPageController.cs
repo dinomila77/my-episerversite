@@ -21,8 +21,10 @@ namespace MyEpiserverSite.Controllers
 
         public ActionResult Save(FormPage currentPage, ShippingAddress address)
         {
+            //if (!ModelState.IsValid) return View("Index", currentPage);
             if (currentPage.MainContentArea != null || currentPage.MainContentArea.Items.Any())
             {
+                
                 var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
                 foreach (var item in currentPage.MainContentArea.Items)
@@ -35,7 +37,7 @@ namespace MyEpiserverSite.Controllers
                     }
                 }
             }
-            return null;
+            return RedirectToAction("Index",currentPage);
         }
     }
 }
