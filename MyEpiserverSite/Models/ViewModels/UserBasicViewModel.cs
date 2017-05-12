@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using EPiServer.Core;
 
 namespace MyEpiserverSite.Models.ViewModels
 {
@@ -15,5 +16,7 @@ namespace MyEpiserverSite.Models.ViewModels
         [Required]
         [Display(Name = "Personal number")]
         public string PersonalNumber { get; set; }
+
+        public ContentReference CurrentPageLink { get; set; }
     }
 }
