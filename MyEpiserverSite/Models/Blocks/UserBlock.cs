@@ -7,45 +7,72 @@ using EPiServer.DataAnnotations;
 
 namespace MyEpiserverSite.Models.Blocks
 {
-    [ContentType(DisplayName = "UserBlock", GUID = "cc4b246e-4c66-4907-8a8d-92061e3ec78a", Description = "")]
+    [ContentType(DisplayName = "UserBlock", GUID = "cc4b246e-4c66-4907-8a8d-92061e3ec78a", Description = "Block for registering user")]
     public class UserBlock : SiteBlockData
     {
-
-        //[CultureSpecific]
-        //[Display(
-        //    Name = "Name",
-        //    Description = "Name field's description",
-        //    GroupName = SystemTabNames.Content,
-        //    Order = 1)]
-        //public virtual string Name { get; set; }
-
+        [CultureSpecific]
         [Required]
-        [Display(Name ="First name")]
+        [Display(
+            Name = "Heading",
+            GroupName = SystemTabNames.Content,
+            Order = 1)]
+        public virtual string Heading { get; set; }
+
+        [CultureSpecific]
+        [Required]
+        [Display(
+            Name = "First Name label",
+            GroupName = SystemTabNames.Content,
+            Order = 2)]
         public virtual string FirstName { get; set; }
 
+        [CultureSpecific]
         [Required]
-        [Display(Name = "Last name")]
+        [Display(Name = "Last name label",
+            GroupName = SystemTabNames.Content,
+            Order = 3)]
         public virtual string LastName { get; set; }
 
+        [CultureSpecific]
         [Required]
+        [Display(Name = "Address label",
+            GroupName = SystemTabNames.Content,
+            Order = 4)]
         public virtual string Address { get; set; }
 
+        [CultureSpecific]
         [Required]
-        [Display(Name = "Zip code")]
+        [Display(Name = "Zip code label",
+            GroupName = SystemTabNames.Content,
+            Order = 5)]
         public virtual string ZipCode { get; set; }
 
+        [CultureSpecific]
         [Required]
+        [Display(Name = "City label",
+            GroupName = SystemTabNames.Content,
+            Order = 6)]
         public virtual string City { get; set; }
 
+        [CultureSpecific]
         [Required]
-        [EmailAddress]
+        [Display(Name = "Email address label",
+            GroupName = SystemTabNames.Content,
+            Order = 7)]
         public virtual string Email { get; set; }
 
+        [CultureSpecific]
         [Required]
-        [Display(Name = "Personal number")]
+        [Display(Name = "Personal number label",
+            GroupName = SystemTabNames.Content,
+            Order = 8)]
         public virtual string PersonalNumber { get; set; }
 
-        [Display(Name = "Phone number")]
+        [CultureSpecific]
+        [Required]
+        [Display(Name = "Phone number label",
+            GroupName = SystemTabNames.Content,
+            Order = 9)]
         public virtual string PhoneNumber { get; set; }
     }
 }
