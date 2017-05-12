@@ -21,7 +21,7 @@ namespace MyEpiserverSite.Controllers
 
         public ActionResult Save(FormPage currentPage, ShippingAddress address)
         {
-            //if (!ModelState.IsValid) return View("Index", currentPage);
+            if (!ModelState.IsValid) return View("Index", currentPage);
             if (currentPage.MainContentArea != null || currentPage.MainContentArea.Items.Any())
             {
                 
@@ -37,7 +37,7 @@ namespace MyEpiserverSite.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index",currentPage);
+            return null;
         }
     }
 }
