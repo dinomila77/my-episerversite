@@ -24,6 +24,7 @@ namespace MyEpiserverSite.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UserBasic(UserBasicViewModel userBasic, string btnNext)
         {
             if (btnNext != null)
@@ -42,6 +43,7 @@ namespace MyEpiserverSite.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UserDetails(UserDetailsViewModel userDetails, string btnPrev, string btnSave)
         {
             var userEntity = GetUserEntity();
