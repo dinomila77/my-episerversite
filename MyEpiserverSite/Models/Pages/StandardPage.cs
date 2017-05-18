@@ -21,6 +21,7 @@ namespace MyEpiserverSite.Models.Pages
         public virtual XhtmlString MainBody { get; set; }
 
         [Display(
+            Name = "Main Content Area",
             GroupName = SystemTabNames.Content,
             Order = 320)]
         public virtual ContentArea MainContentArea { get; set; }
