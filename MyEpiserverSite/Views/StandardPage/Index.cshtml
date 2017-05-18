@@ -1,0 +1,10 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+
+@model MyEpiserverSite.Models.Pages.StandardPage
+
+<div>
+    @Html.PropertyFor(m => m.MainBody)
+    @Html.PropertyFor(m => m.MainContentArea)
+    @Html.PropertyFor(m => m.Image)
+</div>
