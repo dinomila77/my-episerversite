@@ -3,6 +3,7 @@
 
 @model MyEpiserverSite.Models.Pages.StandardPage
 
+<h1 @Html.EditAttributes(x => x.PageName)>@Model.PageName</h1>
 <div>
     @Html.PropertyFor(m => m.MainBody)
     @Html.PropertyFor(m => m.MainContentArea)
