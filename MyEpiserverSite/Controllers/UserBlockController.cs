@@ -20,6 +20,7 @@ namespace MyEpiserverSite.Controllers
     {
         public override ActionResult Index(UserBlock currentBlock)
         {
+            RemoveUserEntity();
             return PartialView();
         }
 
