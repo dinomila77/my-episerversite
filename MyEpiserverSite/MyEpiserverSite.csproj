@@ -238,6 +238,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ArticlePageController.cs" />
     <Compile Include="Controllers\PageControllerBase.cs" />
+    <Compile Include="Controllers\StandardPageController.cs" />
     <Compile Include="Controllers\StartPageController.cs" />
     <Compile Include="Controllers\UserBlockController.cs" />
     <Compile Include="Global.asax.cs">
@@ -310,6 +311,7 @@
     <Content Include="Views\UserBlock\_UserBasic.cshtml" />
     <Content Include="Views\UserBlock\_UserDetails.cshtml" />
     <Content Include="Views\Shared\TopNavigation.cshtml" />
+    <Content Include="Views\StandardPage\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
