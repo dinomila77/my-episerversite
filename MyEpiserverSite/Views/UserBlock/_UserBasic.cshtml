@@ -1,20 +1,25 @@
-﻿@using MyEpiserverSite.Controllers
+﻿@using EPiServer
+@using EPiServer.ServiceLocation
+@using MyEpiserverSite.Controllers
 @model MyEpiserverSite.Models.ViewModels.UserBasicViewModel
 
+@{
+
+    var pageRouteHelper = ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
+    var currentPageUrl = pageRouteHelper.PageLink;
+    var currentPage = DataFactory.Instance.GetPage(currentPageUrl);
+    @*<a href="@currentPage.LinkURL">@currentPage.Name</a>*@
+    
+}
 @using (Ajax.BeginForm("UserBasic", "UserBlock", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "newUserForm" }))
 {
     @Html.AntiForgeryToken()
 
+
     <div class="form-horizontal">
         <h4>Enter your email and personal number</h4>
         <hr/>
-        @if (TempData["success"] != null)
-        {
-            <p>Thank you for your sumbission.</p>
-            @*<p>@TempData["success"]</p>*@
-        }
-        else
-        {
+        
             @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
@@ -34,7 +39,7 @@
                     <input type="submit" value="Next" name="btnNext" class="btn btn-default" />
                 </div>
             </div>
-        }
+        
     </div>
 }
 

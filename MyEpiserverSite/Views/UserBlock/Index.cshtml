@@ -1,7 +1,22 @@
 ﻿@using EPiServer.Core
 @using EPiServer.Web.Mvc.Html
+@using MyEpiserverSite.Models.Blocks
 
-@model MyEpiserverSite.Controllers.UserBlockController
+@model MyEpiserverSite.Models.Blocks.UserBlock
+@{
+    var b = new UserBlock();
+    var test = b.CurrentPage;
+   
+    <a href="@test.LinkURL">@test.Name</a>
+}
 <div id="newUserForm">
-    @Html.Partial("_UserBasic")
+    @if (TempData["success"] != null)
+    {
+        <a href="@test.LinkURL">@test.Name</a>
+    }
+    else
+    {
+        @Html.Partial("_UserBasic")
+    }
+    
 </div>
