@@ -1,22 +1,30 @@
-﻿@using EPiServer.Core
+﻿@using EPiServer
+@using EPiServer.Core
+@using EPiServer.ServiceLocation
 @using EPiServer.Web.Mvc.Html
+@using EPiServer.Web.Routing
+@using EPiServer.Web.WebControls
+@using MyEpiserverSite.Controllers
 @using MyEpiserverSite.Models.Blocks
 
-@model MyEpiserverSite.Models.Blocks.UserBlock
-@{
-    var b = new UserBlock();
-    var test = b.CurrentPage;
-   
-    <a href="@test.LinkURL">@test.Name</a>
-}
+@model MyEpiserverSite.Controllers.UserBlockController
+
 <div id="newUserForm">
     @if (TempData["success"] != null)
     {
-        <a href="@test.LinkURL">@test.Name</a>
+        //var repository = ServiceLocator.Current.GetInstance<IContentRepository>();
+        //var contentReference = new ContentReference(25);
+        //var page2 = repository.Get<PageData>(contentReference);
+
+        var pageRef = new PageReference(25);
+        var contentRepository = ServiceLocator.Current.GetInstance<IContentLoader>();
+        var page = contentRepository.Get<PageData>(pageRef);
+
+        <p>Thank you for your submission.</p>
+        <a href="@page.LinkURL">Add another user</a>      
     }
     else
     {
         @Html.Partial("_UserBasic")
-    }
-    
+    }   
 </div>
