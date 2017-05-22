@@ -1,21 +1,19 @@
 ﻿@using EPiServer.Core
 @using EPiServer.Web
 @using EPiServer.Web.Mvc.Html
+@using MyEpiserverSite.Models.ViewModels
+@using MyEpiserverSite.Models.Pages
 
-@model MyEpiserverSite.Models.Pages.ArticlePage
+@model PageViewModel<ArticlePage>
 
-@*@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
-
-<h1 @Html.EditAttributes(x => x.PageName)>@Model.PageName</h1>
-<h4>@Html.PropertyFor(m => m.Introduction)</h4>
+<h1 @Html.EditAttributes(x => x.CurrentPage.PageName)>@Model.CurrentPage.PageName</h1>
+<h4>@Html.PropertyFor(m => m.CurrentPage.Introduction)</h4>
 @*<textarea>@Html.DisplayFor(m => m.Introduction)</textarea>*@
 
 <div>
-    @Html.PropertyFor(m => m.MainBody)
-    @Html.PropertyFor(x => x.MainContentArea)
+    @Html.PropertyFor(m => m.CurrentPage.MainBody)
+    @Html.PropertyFor(x => x.CurrentPage.MainContentArea)
 </div>
 <div>
-    @Html.PropertyFor(m => m.Image)
+    @Html.PropertyFor(m => m.CurrentPage.Image)
 </div>
