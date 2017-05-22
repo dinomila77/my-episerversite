@@ -6,6 +6,7 @@ using EPiServer.Core;
 using EPiServer.Framework.DataAnnotations;
 using EPiServer.Web.Mvc;
 using MyEpiserverSite.Models.Pages;
+using MyEpiserverSite.Models.ViewModels;
 
 namespace MyEpiserverSite.Controllers
 {
@@ -13,7 +14,8 @@ namespace MyEpiserverSite.Controllers
     {
         public ActionResult Index(StartPage currentPage)
         {
-            return View(currentPage);
+            var model = PageViewModel.Create(currentPage);
+            return View(model);
         }
     }
 }
