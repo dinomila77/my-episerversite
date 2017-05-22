@@ -9,6 +9,7 @@ using EPiServer.Framework.Serialization.Json.Internal;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
+using EPiServer.Web.Routing;
 using MyEpiserverSite.Models.Blocks;
 using MyEpiserverSite.Models.Entities;
 using MyEpiserverSite.Models.ViewModels;
@@ -19,17 +20,8 @@ namespace MyEpiserverSite.Controllers
 {
     public class UserBlockController : BlockController<UserBlock>
     {
-        public string Test()
-        {
-            var pageRouteHelper = ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
-            var currentPageUrl = pageRouteHelper.PageLink;
-            var currentPage = DataFactory.Instance.GetPage(currentPageUrl);
-            return currentPage.LinkURL;
-        }
-
         public override ActionResult Index(UserBlock currentBlock)
         {
-            var test2 = currentBlock.CurrentPage;
             RemoveUserEntity();
             return PartialView();
         }
