@@ -14,31 +14,29 @@
 {
     @Html.AntiForgeryToken()
 
-
     <div class="form-horizontal">
+        <hr />
         <h4>Enter your email and personal number</h4>
-        <hr/>
-        
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+
+        @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.PersonalNumber, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @*@Html.TextBoxFor(model => model.PersonalNumber,  new { @class = "form-control", placeholder = "ååmmddnnnn"})*@
-                    @Html.TextBoxFor(model => model.PersonalNumber, new { placeholder = "ååmmddnnnn" })
-                </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonalNumber, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.PersonalNumber,  new { @class = "form-control", placeholder = "ååmmddnnnn"})*@
+                @Html.TextBoxFor(model => model.PersonalNumber, new {placeholder = "ååmmddnnnn"})
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Next" name="btnNext" class="btn btn-default" />
-                </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Next" name="btnNext" class="btn btn-default"/>
             </div>
-        
+        </div>
     </div>
 }
 

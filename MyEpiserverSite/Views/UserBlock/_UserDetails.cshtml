@@ -14,50 +14,50 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Enter your name and contact details.</h4>
         <hr />
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <h4>Enter your name and contact details.</h4>
+
+        @Html.ValidationSummary(false, "", new {@class = "text-danger"})
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FirstName, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.FirstName, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LastName, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.LastName, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Address, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Address, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ZipCode, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ZipCode, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.ZipCode, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.City, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.City, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PhoneNumber, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.PhoneNumber, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Previous" name="btnPrev" class="btn btn-default" />
-                <input type="submit" value="Save" name="btnSave" class="btn btn-default" />
-
+                <input type="submit" value="Previous" name="btnPrev" class="btn btn-default"/>
+                <input type="submit" value="Save" name="btnSave" class="btn btn-default"/>
             </div>
         </div>
     </div>

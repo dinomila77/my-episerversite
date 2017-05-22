@@ -10,6 +10,7 @@
 @model MyEpiserverSite.Controllers.UserBlockController
 
 <div id="newUserForm">
+    
     @if (TempData["success"] != null)
     {
         //var repository = ServiceLocator.Current.GetInstance<IContentRepository>();
@@ -20,11 +21,12 @@
         var contentRepository = ServiceLocator.Current.GetInstance<IContentLoader>();
         var page = contentRepository.Get<PageData>(pageRef);
 
+        <hr />
         <p>Thank you for your submission.</p>
-        <a href="@page.LinkURL">Add another user</a>      
+        <a href="@page.LinkURL">Add another user</a>
     }
     else
     {
         @Html.Partial("_UserBasic")
-    }   
+    }
 </div>
