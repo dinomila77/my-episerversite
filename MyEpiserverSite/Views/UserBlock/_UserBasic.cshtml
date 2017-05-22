@@ -3,12 +3,12 @@
 @using MyEpiserverSite.Controllers
 @model MyEpiserverSite.Models.ViewModels.UserBasicViewModel
 
-@{
+@*@{
     var pageRouteHelper = ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
     var currentPage = pageRouteHelper.Page;
 
     <a href="@currentPage.LinkURL">@currentPage.Name</a>
-}
+}*@
 
 @using (Ajax.BeginForm("UserBasic", "UserBlock", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "newUserForm" }))
 {
