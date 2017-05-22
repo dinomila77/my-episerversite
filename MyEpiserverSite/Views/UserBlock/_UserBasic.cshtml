@@ -4,13 +4,12 @@
 @model MyEpiserverSite.Models.ViewModels.UserBasicViewModel
 
 @{
-
     var pageRouteHelper = ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
     var currentPageUrl = pageRouteHelper.PageLink;
     var currentPage = DataFactory.Instance.GetPage(currentPageUrl);
-    @*<a href="@currentPage.LinkURL">@currentPage.Name</a>*@
-    
+    <a href="@currentPage.LinkURL">@currentPage.Name</a>
 }
+
 @using (Ajax.BeginForm("UserBasic", "UserBlock", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "newUserForm" }))
 {
     @Html.AntiForgeryToken()
