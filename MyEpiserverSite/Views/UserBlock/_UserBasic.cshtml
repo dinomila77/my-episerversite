@@ -5,8 +5,8 @@
 
 @{
     var pageRouteHelper = ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
-    var currentPageUrl = pageRouteHelper.PageLink;
-    var currentPage = DataFactory.Instance.GetPage(currentPageUrl);
+    var currentPage = pageRouteHelper.Page;
+
     <a href="@currentPage.LinkURL">@currentPage.Name</a>
 }
 
