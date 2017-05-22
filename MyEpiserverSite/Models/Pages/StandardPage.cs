@@ -30,6 +30,11 @@ namespace MyEpiserverSite.Models.Pages
         [Display(Name = "Main Image")]
         public virtual ContentReference Image { get; set; }
 
+        public virtual string Heading { get; set; }
+
+        [UIHint(UIHint.Textarea)]
+        public virtual string Introduction { get; set; }
+
         //[UIHint(UIHint.MediaFile)]
         //[Display(Name = "Main Image")]
         //public virtual ContentReference Image { get; set; }
