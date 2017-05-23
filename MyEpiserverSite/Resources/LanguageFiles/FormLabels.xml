@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+  <language name="English" id="en">
+    <email>Email address</email>
+    <personalnumber>Personal number</personalnumber>
+    <firstname>First name</firstname>
+    <lastname>Last name</lastname>
+    <address>Address</address>
+    <zipcode>Zip code</zipcode>
+    <city>City</city>
+    <phonenumber>Phone number</phonenumber>
+  </language>
+  
+  <language name="Swedish" id="sv">
+    <email>E-postadress</email>
+  </language>
+</languages>
