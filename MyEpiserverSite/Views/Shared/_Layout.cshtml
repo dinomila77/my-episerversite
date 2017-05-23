@@ -1,10 +1,13 @@
 ﻿@using EPiServer
 @using EPiServer.Core
+@using MyEpiserverSite.Models.ViewModels
+@using MyEpiserverSite.Models.Pages
+@model IPageViewModel<SitePageData>
 @{
     var startPage = DataFactory.Instance.GetPage(ContentReference.StartPage);
 }
 <!DOCTYPE html>
-<html>
+<html lang="@Model.CurrentPage.LanguageBranch">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
