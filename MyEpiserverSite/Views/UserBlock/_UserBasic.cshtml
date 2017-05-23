@@ -20,13 +20,13 @@
 
         @Html.ValidationSummary(false, "", new {@class = "text-danger"})
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
+            @Html.Label(Html.Translate("email"), new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.PersonalNumber, new {@class = "control-label col-md-2"})
+            @Html.Label(Html.Translate("personalnumber"), new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @*@Html.TextBoxFor(model => model.PersonalNumber,  new { @class = "form-control", placeholder = "ååmmddnnnn"})*@
                 @Html.TextBoxFor(model => model.PersonalNumber, new {placeholder = "ååmmddnnnn"})
