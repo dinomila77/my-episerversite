@@ -251,6 +251,7 @@
     <Compile Include="Models\Media\ImageFile.cs" />
     <Compile Include="Models\Pages\ArticlePage.cs" />
     <Compile Include="Models\Pages\ContactPage.cs" />
+    <Compile Include="Models\Pages\CreateContentPage.cs" />
     <Compile Include="Models\Pages\SitePageData.cs" />
     <Compile Include="Models\Pages\StandardPage.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
@@ -316,6 +317,7 @@
     <Content Include="Views\UserBlock\_UserDetails.cshtml" />
     <Content Include="Views\Shared\TopNavigation.cshtml" />
     <Content Include="Views\StandardPage\Index.cshtml" />
+    <Content Include="Views\CreateContentPage\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,12 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@using MyEpiserverSite.Models.ViewModels
+@using MyEpiserverSite.Models.Pages
+
+@model PageViewModel<CreateContentPage>
+
+<h1 @Html.EditAttributes(x => x.CurrentPage.PageName)>@Model.CurrentPage.PageName</h1>
+<div>
+    <h4>@Html.PropertyFor(m => m.CurrentPage.Introduction)</h4>
+    @Html.PropertyFor(m => m.CurrentPage.MainContentArea)
+</div>
