@@ -10,8 +10,14 @@
     <city>City</city>
     <phonenumber>Phone number</phonenumber>
   </language>
-  
   <language name="Swedish" id="sv">
     <email>E-postadress</email>
+    <personalnumber>Personnummer</personalnumber>
+    <firstname>Förnamn</firstname>
+    <lastname>Efternamn</lastname>
+    <address>Adress</address>
+    <zipcode>Postnummer</zipcode>
+    <city>Ort</city>
+    <phonenumber>Telefonnummer</phonenumber>
   </language>
 </languages>
