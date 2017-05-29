@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <languages>
   <language name="English" id="en">
+    <instruction>Enter your email and personal number</instruction>
     <email>Email address</email>
     <personalnumber>Personal number</personalnumber>
     <firstname>First name</firstname>
@@ -11,6 +12,7 @@
     <phonenumber>Phone number</phonenumber>
   </language>
   <language name="Swedish" id="sv">
+    <instruction>Fyll i din e-postadress och personnummer</instruction>
     <email>E-postadress</email>
     <personalnumber>Personnummer</personalnumber>
     <firstname>Förnamn</firstname>
