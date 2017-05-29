@@ -319,6 +319,7 @@
     <Content Include="Views\Shared\TopNavigation.cshtml" />
     <Content Include="Views\StandardPage\Index.cshtml" />
     <Content Include="Views\CreateContentPage\Index.cshtml" />
+    <Content Include="Views\CreateContentPage\CreateContent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
