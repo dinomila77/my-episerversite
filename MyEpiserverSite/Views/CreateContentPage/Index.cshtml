@@ -6,5 +6,8 @@
 <h1 @Html.EditAttributes(x => x.CurrentPage.PageName)>@Model.CurrentPage.PageName</h1>
 <div>
     <h4>@Html.PropertyFor(m => m.CurrentPage.Introduction)</h4>
-    @Html.PropertyFor(m => m.CurrentPage.MainContentArea)
+    @Html.HiddenFor(m => m.CurrentPage.ParentId)
+    @{
+        Html.RenderAction("SubmitForm", "CreateContentPage");
+    }
 </div>
