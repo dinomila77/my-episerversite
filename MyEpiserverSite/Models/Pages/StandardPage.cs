@@ -35,9 +35,6 @@ namespace MyEpiserverSite.Models.Pages
         [UIHint(UIHint.Textarea)]
         public virtual string Introduction { get; set; }
 
-        [Display(Name = "Parent Id")]
-        public virtual ContentReference ParentId { get; set; }
-
         //[UIHint(UIHint.MediaFile)]
         //[Display(Name = "Main Image")]
         //public virtual ContentReference Image { get; set; }
