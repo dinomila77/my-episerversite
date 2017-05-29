@@ -11,6 +11,6 @@
 @foreach (var childPage in childPages)
 {
     <li>
-        <a href="@childPage.LinkURL">@childPage.Name</a>
+        <a href="@Url.ContentUrl(childPage.ContentLink)">@childPage.Name</a>
     </li>
 }
