@@ -1,0 +1,28 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+
+@model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 text-center">
+        <h2>Search results...</h2>
+        <br/>
+
+                @if (Model.HasSearchResult)
+                {
+                    foreach (var searchResult in Model.SearchResults)
+                    {
+                        <p class="lead">
+                            <a href="@Url.PageUrl(@searchResult.LinkURL)">@searchResult.Name</a>
+                        </p>
+                        <p>@Url.PageUrl(@searchResult.LinkURL)</p>
+
+                        <hr/>
+                    }
+                }
+                else
+                {
+                    <p>No results...</p>
+                }
+    </div>
+</div>
