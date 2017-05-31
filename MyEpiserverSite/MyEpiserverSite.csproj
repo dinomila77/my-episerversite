@@ -252,6 +252,7 @@
     <Compile Include="Controllers\CreateContentPageController.cs" />
     <Compile Include="Controllers\DefaultPageController.cs" />
     <Compile Include="Controllers\PageControllerBase.cs" />
+    <Compile Include="Controllers\SearchPageController.cs" />
     <Compile Include="Controllers\StandardPageController.cs" />
     <Compile Include="Controllers\StartPageController.cs" />
     <Compile Include="Controllers\UserBlockController.cs" />
@@ -265,11 +266,13 @@
     <Compile Include="Models\Pages\ArticlePage.cs" />
     <Compile Include="Models\Pages\ContactPage.cs" />
     <Compile Include="Models\Pages\CreateContentPage.cs" />
+    <Compile Include="Models\Pages\SearchPage.cs" />
     <Compile Include="Models\Pages\SitePageData.cs" />
     <Compile Include="Models\Pages\StandardPage.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
     <Compile Include="Models\ViewModels\IPageViewModel.cs" />
     <Compile Include="Models\ViewModels\PageViewModel.cs" />
+    <Compile Include="Models\ViewModels\SearchPageViewModel.cs" />
     <Compile Include="Models\ViewModels\UserBasicViewModel.cs" />
     <Compile Include="Models\ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,7 +311,9 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\GeoLiteCity.dat" />
     <None Include="EPiServerLog.config" />
     <Content Include="packages.config" />
@@ -333,6 +338,7 @@
     <Content Include="Views\StandardPage\Index.cshtml" />
     <Content Include="Views\CreateContentPage\Index.cshtml" />
     <Content Include="Views\CreateContentPage\CreateContent.cshtml" />
+    <Content Include="Views\SearchPage\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

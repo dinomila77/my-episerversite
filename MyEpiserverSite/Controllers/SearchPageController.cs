@@ -14,7 +14,9 @@ namespace MyEpiserverSite.Controllers
     {
         public ActionResult Index(SearchPage currentPage,string searchTerm)
         {
-            var model = new SearchPageViewModel(currentPage,searchTerm);
+            //var model = new SearchPageViewModel(currentPage, searchTerm);
+            var page = PageViewModel.Create(currentPage);
+            var model = new SearchPageViewModel(page.CurrentPage,searchTerm);
 
             return View(model);
         }
