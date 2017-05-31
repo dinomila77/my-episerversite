@@ -32,31 +32,44 @@ namespace MyEpiserverSite.Models.ViewModels
             {
                 PropertyCriteriaCollection criterias = new PropertyCriteriaCollection();
 
-                //PropertyCriteria secCriteria = new PropertyCriteria();
-                //secCriteria.Condition = CompareCondition.StartsWith;
-                //secCriteria.Name = "PageName";
-                //secCriteria.Type = PropertyDataType.String;
-                //secCriteria.Value = _searchTerm;
-                //secCriteria.Required = true;
-                //criterias.Add(secCriteria);
-
-                PropertyCriteria frstCriteria = new PropertyCriteria();
-                frstCriteria.Condition = CompareCondition.StartsWith;
-                frstCriteria.Name = "PageName";
-                frstCriteria.Type = PropertyDataType.String;
-                frstCriteria.Value = _searchTerm;
-                frstCriteria.Required = true;
+                PropertyCriteria frstCriteria = new PropertyCriteria
+                {
+                    Condition = CompareCondition.Contained,
+                    Name = "MainBody",
+                    Type = PropertyDataType.String,
+                    Value = _searchTerm,
+                    Required = false
+                };
                 criterias.Add(frstCriteria);
+
+                PropertyCriteria secCriteria = new PropertyCriteria
+                {
+                    Condition = CompareCondition.StartsWith,
+                    Name = "PageName",
+                    Type = PropertyDataType.String,
+                    Value = _searchTerm,
+                    Required = false
+                };
+                criterias.Add(secCriteria);
+
+                PropertyCriteria thrdCriteria = new PropertyCriteria
+                {
+                    Condition = CompareCondition.StartsWith,
+                    Name = "Introduction",
+                    Type = PropertyDataType.String,
+                    Value = _searchTerm,
+                    Required = false
+                };
+                criterias.Add(thrdCriteria);
 
                 var repository = ServiceLocator.Current.GetInstance<IPageCriteriaQueryService>();
                 PageResults = repository.FindPagesWithCriteria(ContentReference.StartPage, criterias);
+
                 FilterForVisitor.Filter(PageResults);
                 new FilterSort(FilterSortOrder.PublishedDescending).Filter(PageResults);
             }
 
             HasSearchResult = PageResults != null;
-        }
-
-        
+        }  
     }
 }
