@@ -2,43 +2,21 @@
 @using EPiServer.Core
 @using EPiServer.ServiceLocation
 @using EPiServer.Web.Mvc.Html
-@using MyEpiserverSite.Models.Pages
-
-@model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
 
 @{   
     var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
     var page = contentLoader.GetChildren<PageData>(ContentReference.StartPage).FirstOrDefault();
 }
 <div class="row">
-    <form action="@Url.PageUrl(page.LinkURL)" method="get">
+    <form action="@Url.PageUrl(page.LinkURL)" method="post">
         <div class="navbar-form">
             <div class="form-group" style="display: inline;">
                 <div class="input-group">
                     <input type="text" name="searchterm" class="form-control" placeholder="Search...">
-                    <span class="input-group-addon">@*<button><span class="glyphicon glyphicon-search"></span></button>*@ <button>Search</button></span>
+                    <span class="input-group-addon">@*<button><span class="glyphicon glyphicon-search"></span></button>*@ 
+                    <button>Search</button></span>
                 </div>
             </div>
         </div>
     </form>
-    
-    
-    <div class="col-sm-8 col-sm-offset-2 text-center">
-        <h3>Search results...</h3>
-        <br />
-
-        @if (Model.HasSearchResult)
-        {
-            foreach (var searchResult in Model.PageResults.Where(p => p.VisibleInMenu))
-            {
-                <p class="lead">
-                    <a href="@Url.PageUrl(@searchResult.LinkURL)">@searchResult.Name</a>
-                </p>
-                @*<p>@Url.PageUrl(@searchResult.LinkURL)</p>*@
-
-                <hr />
-            }
-        }
-       
-    </div>
 </div>

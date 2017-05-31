@@ -1,0 +1,49 @@
+﻿@using EPiServer
+@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+    var page = contentLoader.GetChildren<PageData>(ContentReference.StartPage).FirstOrDefault();
+}
+<div class="row">
+    <form action="@Url.PageUrl(page.LinkURL)" method="post">
+        <div class="navbar-form">
+            <div class="form-group" style="display: inline;">
+                <div class="input-group">
+                    <input type="text" name="searchterm" class="form-control" placeholder="Search...">
+                    <span class="input-group-addon">
+                    <button>Search</button>
+                </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-sm-8 col-sm-offset-2 text-center">
+    <h3>Search results...</h3>
+    <br />
+
+    @if (Model.HasSearchResult)
+    {
+        if (Model.PageResults.Count == 0)
+        {
+            <p>No results...</p>
+        }
+        foreach (var searchResult in Model.PageResults.Where(p => p.VisibleInMenu))
+        {
+            <p class="lead">
+                <a href="@Url.PageUrl(@searchResult.LinkURL)">@searchResult.Name</a>
+            </p>
+            <hr/>
+        }
+    }
+    else
+    {
+        <p>No results...</p>
+    }
+
+</div>
+
