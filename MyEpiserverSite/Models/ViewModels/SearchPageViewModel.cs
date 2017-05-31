@@ -54,7 +54,7 @@ namespace MyEpiserverSite.Models.ViewModels
 
                 PropertyCriteria thrdCriteria = new PropertyCriteria
                 {
-                    Condition = CompareCondition.StartsWith,
+                    Condition = CompareCondition.Contained,
                     Name = "Introduction",
                     Type = PropertyDataType.String,
                     Value = _searchTerm,
