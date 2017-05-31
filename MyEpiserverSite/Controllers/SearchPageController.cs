@@ -12,13 +12,18 @@ namespace MyEpiserverSite.Controllers
 {
     public class SearchPageController : PageControllerBase<SearchPage>
     {
-        public ActionResult Index(SearchPage currentPage,string searchTerm)
+        [HttpGet]
+        public ActionResult Index(SearchPage currentPage)
         {
-            //var model = new SearchPageViewModel(currentPage, searchTerm);
             var page = PageViewModel.Create(currentPage);
-            var model = new SearchPageViewModel(page.CurrentPage,searchTerm);
+            return View(page);
+        }
 
-            return View(model);
+        [HttpPost]
+        public ActionResult Index(SearchPage currentPage, string searchTerm)
+        {
+            var model = new SearchPageViewModel(currentPage, searchTerm);
+            return View("SearchResults",model);
         }
     }
 }
