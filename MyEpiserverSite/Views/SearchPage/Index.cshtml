@@ -1,8 +1,37 @@
 ﻿@using EPiServer.Core
+@using EPiServer.Editor
 @using EPiServer.Web.Mvc.Html
-
+@using MyEpiserverSite.Controllers
 @model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
 
-<div>
-    <p>Test</p>
+<div class="row">
+    <div class="span8,search-form">
+        @*We use GET to submit the form to enable bookmarking etc of search results.  However, as GET will remove other
+            query string values not in the form we can't use that in edit mode.*@
+
+        @{
+            using (Html.BeginForm(null, null, PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get))
+            {
+                <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery"/>
+                <input type="submit" tabindex="2" class="btn" value="Search"/>
+            }
+        }
+    </div>
 </div>
+@if (Model.NumberOfHits != 0)
+{
+    <p>Hits = @Model.NumberOfHits</p>
+
+    @*foreach (var item in Model.Results)
+    {      
+        <div>
+            <a href="@item.Uri">@item.Title</a>
+        </div>      
+    }*@
+    for (int i = 0; i < Model.NumberOfHits; i++)
+    {
+        <div>
+            <a href="@Model.Urls[i]">@Model.Results[i].Title</a>
+        </div>
+    }
+}
