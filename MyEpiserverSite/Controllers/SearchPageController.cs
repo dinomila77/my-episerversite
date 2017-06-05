@@ -36,17 +36,18 @@ namespace MyEpiserverSite.Controllers
                 var hits = Search(q.Trim(),
                     new[] { SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot },
                     ControllerContext.HttpContext,
-                    currentPage.LanguageID).IndexResponseItems;
+                    currentPage.LanguageID);
 
                 model.Urls = new List<string>();
                 model.Results = new List<IndexResponseItem>();
-                foreach (var indexResponseItem in hits)
+                foreach (var indexResponseItem in hits.IndexResponseItems)
                 {
                     model.Results.Add(indexResponseItem);
                     var uri = CreateHits(indexResponseItem);                    
                     model.Urls.Add(uri.ToString());
                 }
-                model.NumberOfHits = hits.Count;
+                model.NumberOfHits = hits.IndexResponseItems.Count;
+                model.TotalHits = hits.TotalHits;
             }
             return View(model);
         }

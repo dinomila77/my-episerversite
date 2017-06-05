@@ -16,6 +16,7 @@ namespace MyEpiserverSite.Models.ViewModels
         public bool SearchServiceDisabled { get; set; }
         public string SearchedQuery { get; set; }
         public int NumberOfHits { get; set; }
+        public int TotalHits { get; set; }
         public List<IndexResponseItem> Results { get; set; }
         public List<string> Urls { get; set; }
     }
