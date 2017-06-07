@@ -37,36 +37,13 @@ namespace MyEpiserverSite.Controllers
                 var hits = Search(q.Trim(),
                     new[] { SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot },
                     ControllerContext.HttpContext,
-                    currentPage.LanguageID, MaxResults);
-
-                model.Urls = new List<string>();
-                //model.PagedList = (PagedList<IndexResponseItem>) hits.IndexResponseItems.ToPagedList(1, 10);
-                model.Results = new List<IndexResponseItem>();
-                //foreach (var indexResponseItem in hits.IndexResponseItems)
-                //{
-                //    model.Results.Add(indexResponseItem);
-                //    //var uri = CreateHits(indexResponseItem);
-                //    //model.Urls.Add(uri.ToString());
-
-                    
-                //}
-                //model.NumberOfHits = hits.IndexResponseItems.Count;
-                //model.TotalHits = hits.TotalHits;
-
+                    currentPage.LanguageID, 
+                    MaxResults);
 
                 model.PageHits = hits.ToPagedList(page,2);
-                //model.PagedList = hits.IndexResponseItems.ToPagedList(page, 2);
             }
             return View(model);
         }
-
-        //private SearchResults Search(string searchText, IEnumerable<ContentReference> searchRoots, HttpContextBase context, string languageBranch, int pages)
-        //{
-        //    var query = CreateQuery(searchText, searchRoots, context, languageBranch);
-        //    var results = SearchHandler.Instance.GetSearchResults(query, 1, pages);
-
-        //    return results;
-        //}
 
         private IEnumerable<SearchPageViewModel.SearchHit>Search(string searchText, IEnumerable<ContentReference> searchRoots, HttpContextBase context, string languageBranch, int pages)
         {
@@ -80,9 +57,7 @@ namespace MyEpiserverSite.Controllers
         {
             UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
             Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
-            //return url.Uri;
-            var url = urlbuilder.Uri.ToString();
-            //var url = urlbuilder.Path;
+            var url = urlbuilder.Path;
             yield return CreatePageHit(responseItem,url);
         }
 
@@ -91,8 +66,7 @@ namespace MyEpiserverSite.Controllers
             return new SearchPageViewModel.SearchHit
             {
                 Title = item.Title,
-                Url = url
-                
+                Url = url              
             };
         }
 

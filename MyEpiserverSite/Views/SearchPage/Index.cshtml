@@ -6,12 +6,8 @@
 @using EPiServer.Web.Routing
 @using MyEpiserverSite.Controllers
 @using PagedList.Mvc
-@*@model PagedList.IPagedList<MyEpiserverSite.Models.ViewModels.SearchPageViewModel.SearchHit>*@
 @model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
 
-@*@{
-    var res = new UrlBuilder();
-}*@
 <div class="row">
     <div class="span8,search-form">
         @*We use GET to submit the form to enable bookmarking etc of search results.  However, as GET will remove other
@@ -26,26 +22,15 @@
         }
     </div>
 </div>
+
 @if (Model.PageHits != null)
 {
-    @*<p>Hits = @Model.TotalHits</p>*@
+    <p>Hits = @Model.PageHits.TotalItemCount</p>
 
     <div class="pagedList">
         @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new {page}), PagedListRenderOptions.MinimalWithItemCountText)
 
     </div>
-
-    @*foreach (var item in Model.PagedList)
-    {
-        var url = new UrlBuilder(item.Uri);
-        Global.UrlRewriteProvider.ConvertToExternal(url, item, System.Text.Encoding.UTF8);
-        <div>
-            <a href="@url.Path">
-                <h3>@item.Title</h3>
-            </a>
-            <hr />
-        </div>
-    }*@
 
     foreach (var item in Model.PageHits)
     {
@@ -55,15 +40,4 @@
             <hr/>
         </div>      
     }
-
-
-
-
-
-    @*for (int i = 0; i < Model.NumberOfHits; i++)
-    {
-        <div>
-            <a href="@Model.Urls[i]">@Model.Results[i].Title</a>
-        </div>
-    }*@
 }

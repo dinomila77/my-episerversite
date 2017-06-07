@@ -14,16 +14,8 @@ namespace MyEpiserverSite.Models.ViewModels
         {
         }
 
-        public bool SearchServiceDisabled { get; set; }
         public string SearchedQuery { get; set; }
-        public int NumberOfHits { get; set; }
-        public int TotalHits { get; set; }
-        public List<IndexResponseItem> Results { get; set; }
-        public List<string> Urls { get; set; }
-        public IEnumerable<SearchHit> Hits { get; set; }
         public IPagedList<SearchHit> PageHits { get; set; }
-
-        public IPagedList<IndexResponseItem> PagedList { get; set; }
 
         public class SearchHit
         {
