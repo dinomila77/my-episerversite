@@ -17,54 +17,83 @@ using EPiServer.Web.Mvc;
 using EPiServer.Web.Routing;
 using MyEpiserverSite.Models.Pages;
 using MyEpiserverSite.Models.ViewModels;
+using PagedList;
 
 namespace MyEpiserverSite.Controllers
 {
     public class SearchPageController : PageControllerBase<SearchPage>
     {
-        private const int MaxResults = 40;
+        private const int MaxResults = 20;
 
-        public ActionResult Index(SearchPage currentPage, string q)
+        public ActionResult Index(SearchPage currentPage, string q, int page = 1)
         {
             var model = new SearchPageViewModel(currentPage)
             {
                 SearchedQuery = q
             };
-
+            
             if (!string.IsNullOrWhiteSpace(q))
             {
                 var hits = Search(q.Trim(),
                     new[] { SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot },
                     ControllerContext.HttpContext,
-                    currentPage.LanguageID);
+                    currentPage.LanguageID, MaxResults);
 
                 model.Urls = new List<string>();
+                //model.PagedList = (PagedList<IndexResponseItem>) hits.IndexResponseItems.ToPagedList(1, 10);
                 model.Results = new List<IndexResponseItem>();
-                foreach (var indexResponseItem in hits.IndexResponseItems)
-                {
-                    model.Results.Add(indexResponseItem);
-                    var uri = CreateHits(indexResponseItem);                    
-                    model.Urls.Add(uri.ToString());
-                }
-                model.NumberOfHits = hits.IndexResponseItems.Count;
-                model.TotalHits = hits.TotalHits;
+                //foreach (var indexResponseItem in hits.IndexResponseItems)
+                //{
+                //    model.Results.Add(indexResponseItem);
+                //    //var uri = CreateHits(indexResponseItem);
+                //    //model.Urls.Add(uri.ToString());
+
+                    
+                //}
+                //model.NumberOfHits = hits.IndexResponseItems.Count;
+                //model.TotalHits = hits.TotalHits;
+
+
+                model.PageHits = hits.ToPagedList(page,2);
+                //model.PagedList = hits.IndexResponseItems.ToPagedList(page, 2);
             }
             return View(model);
         }
 
-        private SearchResults Search(string searchText, IEnumerable<ContentReference> searchRoots, HttpContextBase context, string languageBranch)
+        //private SearchResults Search(string searchText, IEnumerable<ContentReference> searchRoots, HttpContextBase context, string languageBranch, int pages)
+        //{
+        //    var query = CreateQuery(searchText, searchRoots, context, languageBranch);
+        //    var results = SearchHandler.Instance.GetSearchResults(query, 1, pages);
+
+        //    return results;
+        //}
+
+        private IEnumerable<SearchPageViewModel.SearchHit>Search(string searchText, IEnumerable<ContentReference> searchRoots, HttpContextBase context, string languageBranch, int pages)
         {
             var query = CreateQuery(searchText, searchRoots, context, languageBranch);
-            var results = SearchHandler.Instance.GetSearchResults(query, 1, 10);
+            var results = SearchHandler.Instance.GetSearchResults(query, 1, pages);
             
-            return results;
+            return results.IndexResponseItems.SelectMany(CreateUrl);
         }
 
-        private Uri CreateHits(IndexResponseItem responseItem)
+        private IEnumerable<SearchPageViewModel.SearchHit> CreateUrl(IndexResponseItem responseItem)
         {
-            UrlBuilder url = new UrlBuilder(responseItem.Uri);
-            Global.UrlRewriteProvider.ConvertToExternal(url, responseItem, System.Text.Encoding.UTF8);
-            return url.Uri;
+            UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
+            Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
+            //return url.Uri;
+            var url = urlbuilder.Uri.ToString();
+            //var url = urlbuilder.Path;
+            yield return CreatePageHit(responseItem,url);
+        }
+
+        private SearchPageViewModel.SearchHit CreatePageHit(IndexResponseItem item,string url)
+        {
+            return new SearchPageViewModel.SearchHit
+            {
+                Title = item.Title,
+                Url = url
+                
+            };
         }
 
         private IQueryExpression CreateQuery(string searchText, IEnumerable<ContentReference> searchRoots, HttpContextBase context, string languageBranch)

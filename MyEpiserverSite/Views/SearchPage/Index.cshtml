@@ -1,9 +1,17 @@
-﻿@using EPiServer.Core
+﻿@using EPiServer
+@using EPiServer.Core
+@using EPiServer.Data.Dynamic
 @using EPiServer.Editor
 @using EPiServer.Web.Mvc.Html
+@using EPiServer.Web.Routing
 @using MyEpiserverSite.Controllers
+@using PagedList.Mvc
+@*@model PagedList.IPagedList<MyEpiserverSite.Models.ViewModels.SearchPageViewModel.SearchHit>*@
 @model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
 
+@*@{
+    var res = new UrlBuilder();
+}*@
 <div class="row">
     <div class="span8,search-form">
         @*We use GET to submit the form to enable bookmarking etc of search results.  However, as GET will remove other
@@ -18,20 +26,44 @@
         }
     </div>
 </div>
-@if (Model.NumberOfHits != 0)
+@if (Model.PageHits != null)
 {
-    <p>Hits = @Model.TotalHits</p>
+    @*<p>Hits = @Model.TotalHits</p>*@
 
-    @*foreach (var item in Model.Results)
-    {      
+    <div class="pagedList">
+        @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new {page}), PagedListRenderOptions.MinimalWithItemCountText)
+
+    </div>
+
+    @*foreach (var item in Model.PagedList)
+    {
+        var url = new UrlBuilder(item.Uri);
+        Global.UrlRewriteProvider.ConvertToExternal(url, item, System.Text.Encoding.UTF8);
         <div>
-            <a href="@item.Uri">@item.Title</a>
-        </div>      
+            <a href="@url.Path">
+                <h3>@item.Title</h3>
+            </a>
+            <hr />
+        </div>
     }*@
-    for (int i = 0; i < Model.NumberOfHits; i++)
+
+    foreach (var item in Model.PageHits)
+    {
+        <div>
+            <a href="@item.Url">
+                <h3>@item.Title</h3></a>
+            <hr/>
+        </div>      
+    }
+
+
+
+
+
+    @*for (int i = 0; i < Model.NumberOfHits; i++)
     {
         <div>
             <a href="@Model.Urls[i]">@Model.Results[i].Title</a>
         </div>
-    }
+    }*@
 }

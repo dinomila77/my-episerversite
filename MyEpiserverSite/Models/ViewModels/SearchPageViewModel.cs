@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using EPiServer.Search;
 using MyEpiserverSite.Models.Pages;
+using PagedList;
 
 namespace MyEpiserverSite.Models.ViewModels
 {
@@ -19,5 +20,16 @@ namespace MyEpiserverSite.Models.ViewModels
         public int TotalHits { get; set; }
         public List<IndexResponseItem> Results { get; set; }
         public List<string> Urls { get; set; }
+        public IEnumerable<SearchHit> Hits { get; set; }
+        public IPagedList<SearchHit> PageHits { get; set; }
+
+        public IPagedList<IndexResponseItem> PagedList { get; set; }
+
+        public class SearchHit
+        {
+            public string Title { get; set; }
+            public string Url { get; set; }
+            public string Excerpt { get; set; }
+        }
     }
 }
