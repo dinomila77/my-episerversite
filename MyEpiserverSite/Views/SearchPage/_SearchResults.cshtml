@@ -1,0 +1,26 @@
+﻿@using PagedList.Mvc
+@model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
+
+
+
+@if (Model.PageHits != null)
+{
+    <p>Hits = @Model.PageHits.TotalItemCount</p>
+    <div class="pagedList">
+        @*@Html.PagedListPager(Model.PageHits, page => Url.Action("Index","SearchPage", new { page,q = @Model.SearchedQuery}), PagedListRenderOptions.MinimalWithItemCountText)*@
+        @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new { page, q = @Model.SearchedQuery }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() {HttpMethod = "post", UpdateTargetId = "searchResults" }))
+
+    </div>
+
+    foreach (var item in Model.PageHits)
+    {
+        <div>
+            <a href="@item.Url">
+                <h3>@item.Title</h3>
+            </a>
+            <hr />
+        </div>
+    }
+}
+
+
