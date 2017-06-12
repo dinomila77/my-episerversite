@@ -42,6 +42,10 @@ namespace MyEpiserverSite.Controllers
 
                 model.PageHits = hits.ToPagedList(page,2);
             }
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_SearchResults", model);
+            }
             return View(model);
         }
 
