@@ -8,7 +8,7 @@
     <p>Hits = @Model.PageHits.TotalItemCount</p>
     <div class="pagedList">
         @*@Html.PagedListPager(Model.PageHits, page => Url.Action("Index","SearchPage", new { page,q = @Model.SearchedQuery}), PagedListRenderOptions.MinimalWithItemCountText)*@
-        @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new { page, q = @Model.SearchedQuery }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() {HttpMethod = "post", UpdateTargetId = "searchResults" }))
+        @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new { page, q = @Model.SearchedQuery }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() {HttpMethod = "get", UpdateTargetId = "searchResults" }))
 
     </div>
 

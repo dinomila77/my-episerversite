@@ -22,7 +22,7 @@
                 }
             }*@
         @{
-            using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults" }))
+            using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults" }))
             {
                 <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery" />
                 <input type="submit" tabindex="2" class="btn" value="Search" />
