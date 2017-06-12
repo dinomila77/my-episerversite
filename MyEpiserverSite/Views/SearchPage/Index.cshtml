@@ -29,14 +29,17 @@
 @if (Model.Hits != null)
 {
     <p>Hits = @Model.NumberOfHits</p>
-    
 
+    <div class="pagedList">
+        @Html.PagedListPager(Model.Hits, page => Url.Action("Index", "SearchPage", new { page, q = @Model.SearchedQuery }), PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
     foreach (var item in Model.Hits)
     {
         <div>
             <a href="@item.Url">
                 <h3>@item.Title</h3>
             </a>
+            <p>@item.Excerpt</p>
             <hr />
         </div>
     }

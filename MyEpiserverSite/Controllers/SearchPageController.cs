@@ -134,7 +134,7 @@ namespace MyEpiserverSite.Controllers
         }
 
         [ValidateInput(false)]  
-        public ViewResult Index(SearchPage currentPage, string q)
+        public ViewResult Index(SearchPage currentPage, string q, int page = 1)
         {
             var model = new SearchPageViewModel(currentPage)
             {
@@ -148,7 +148,7 @@ namespace MyEpiserverSite.Controllers
                     new[] { SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot },
                     ControllerContext.HttpContext,
                     currentPage.LanguageID).ToList();
-                model.Hits = hits;
+                model.Hits = hits.ToPagedList(page,2);
                 model.NumberOfHits = hits.Count();
             }
 
@@ -175,7 +175,7 @@ namespace MyEpiserverSite.Controllers
             var content = _contentSearchHandler.GetContent<IContent>(responseItem);
             if (content != null && HasTemplate(content) && IsPublished(content as IVersionable))
             {
-                yield return CreatePageHit(content);
+                yield return CreatePageHit(content, responseItem);
             }
         }
 
@@ -191,12 +191,13 @@ namespace MyEpiserverSite.Controllers
             return content.Status.HasFlag(VersionStatus.Published);
         }
 
-        private SearchPageViewModel.SearchHit CreatePageHit(IContent content)
+        private SearchPageViewModel.SearchHit CreatePageHit(IContent content, IndexResponseItem responseItem)
         {
             return new SearchPageViewModel.SearchHit
             {
                 Title = content.Name,
                 Url = _urlResolver.GetUrl(content.ContentLink),
+                Excerpt = responseItem.DisplayText
                 //Excerpt = content is SitePageData ? ((SitePageData)content).TeaserText : string.Empty
             };
         }
