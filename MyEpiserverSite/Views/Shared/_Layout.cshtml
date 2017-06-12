@@ -5,9 +5,8 @@
 @using MyEpiserverSite.Models.Pages
 @model IPageViewModel<SitePageData>
 @{
-    //var startPage = DataFactory.Instance.GetPage(ContentReference.StartPage);
     var content = ServiceLocator.Current.GetInstance<IContentLoader>();
-    var startPages = content.Get<PageData>(ContentReference.StartPage);
+    var startPage = content.Get<PageData>(ContentReference.StartPage);
 }
 <!DOCTYPE html>
 <html lang="@Model.CurrentPage.LanguageBranch">
@@ -25,7 +24,7 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div>
-        <a href="@startPages.LinkURL" class="navbar-brand">@startPages.Name</a>
+        <a href="@startPage.LinkURL" class="navbar-brand">@startPage.Name</a>
     </div>
     <div class="container">
         <div class="navbar-header">
