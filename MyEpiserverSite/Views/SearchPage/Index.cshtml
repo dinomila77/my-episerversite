@@ -8,36 +8,49 @@
 @using PagedList.Mvc
 @model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
 
+
 <div class="row">
     <div class="span8,search-form">
         @*We use GET to submit the form to enable bookmarking etc of search results.  However, as GET will remove other
             query string values not in the form we can't use that in edit mode.*@
 
         @{
-            using (Html.BeginForm(null, null, PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get))
-            {
-                <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery"/>
-                <input type="submit" tabindex="2" class="btn" value="Search"/>
+                using (Html.BeginForm(null, null, PageEditing.PageIsInEditMode ? FormMethod.Post : FormMethod.Get))
+                {
+                    <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery"/>
+                    <input type="submit" tabindex="2" class="btn" value="Search"/>
+                }
             }
-        }
+        @*@{
+            using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults" }))
+            {
+                <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery" />
+                <input type="submit" tabindex="2" class="btn" value="Search" />
+            }
+        }*@
     </div>
 </div>
+<div id="searchResults">
 
-@if (Model.PageHits != null)
-{
-    <p>Hits = @Model.PageHits.TotalItemCount</p>
-
-    <div class="pagedList">
-        @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new {page}), PagedListRenderOptions.MinimalWithItemCountText)
-
-    </div>
-
-    foreach (var item in Model.PageHits)
+    @if (Model.PageHits != null)
     {
-        <div>
-            <a href="@item.Url">
-                <h3>@item.Title</h3></a>
-            <hr/>
-        </div>      
+        <p>Hits = @Model.PageHits.TotalItemCount</p>
+        <div class="pagedList">
+            @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", "SearchPage", new { page, q = @Model.SearchedQuery }), PagedListRenderOptions.MinimalWithItemCountText)
+            @*@Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() {HttpMethod = "post", UpdateTargetId = "searchResults" }))*@
+
+        </div>
+
+        foreach (var item in Model.PageHits)
+        {
+            <div>
+                <a href="@item.Url">
+                    <h3>@item.Title</h3>
+                </a>
+                <hr />
+            </div>
+        }
     }
-}
+
+    @*@Html.Partial("_SearchResults", Model)*@
+</div>
