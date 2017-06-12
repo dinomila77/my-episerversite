@@ -39,7 +39,10 @@
             <a href="@item.Url">
                 <h3>@item.Title</h3>
             </a>
-            <p>@item.Excerpt</p>
+            @if (item.Excerpt.Length > 2)
+            {
+                <p>@item.Excerpt.Substring(0, Math.Min(item.Excerpt.Length, 150))...</p>
+            }
             <hr />
         </div>
     }
