@@ -8,6 +8,7 @@ using EPiServer;
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.Shell.UI.Rest.ContentQuery.Internal;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.Framework.DataAnnotations;
 using EPiServer.Framework.Web;
 using EPiServer.Search;
@@ -173,10 +174,16 @@ namespace MyEpiserverSite.Controllers
         private IEnumerable<SearchPageViewModel.SearchHit> CreateHitModel(IndexResponseItem responseItem)
         {
             var content = _contentSearchHandler.GetContent<IContent>(responseItem);
-            if (content != null && HasTemplate(content) && IsPublished(content as IVersionable))
+            if (content != null && HasTemplate(content) && IsPublished(content as IVersionable) && IsVisible(content))
             {
                 yield return CreatePageHit(content, responseItem);
             }
+        }
+
+        private bool IsVisible(IContent content)
+        {
+            var visible = content.Property.Get("PageVisibleInMenu").Value;
+            return visible.Equals(true);
         }
 
         private bool HasTemplate(IContent content)
