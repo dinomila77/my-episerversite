@@ -25,7 +25,7 @@ namespace MyEpiserverSite.Controllers
 {
     public class SearchPageController : PageControllerBase<SearchPage>
     {
-        private const int MaxResults = 20;
+        private const int MaxResults = 100;
 
         public ActionResult Index(SearchPage currentPage, string q, int page = 1)
         {
@@ -38,19 +38,23 @@ namespace MyEpiserverSite.Controllers
 
             if (!string.IsNullOrWhiteSpace(q))
             {
+                IEnumerable<SearchPageViewModel.SearchHit> hits = new List<SearchPageViewModel.SearchHit>();
                 watch.Start();
-                var hits = Search(q.Trim(),
+                for (int i = 0; i < 100; i++)
+                {
+                    hits = Search(q.Trim(),
                     new[] { SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot },
                     ControllerContext.HttpContext,
                     currentPage.LanguageID,
                     MaxResults);
-
-                model.PageHits = hits.ToPagedList(page, 2);
+                }
+                model.PageHits = hits.ToPagedList(page, 10);
                 watch.Stop();
-                var ms = watch.ElapsedMilliseconds;
             }
             if (Request.IsAjaxRequest())
             {
+                var ms = watch.ElapsedMilliseconds.ToString();
+                TempData["time"] = $"{ms}";
                 return PartialView("_SearchResults", model);
             }
             return View(model);
@@ -66,23 +70,41 @@ namespace MyEpiserverSite.Controllers
 
         private IEnumerable<SearchPageViewModel.SearchHit> CreateUrl(IndexResponseItem responseItem)
         {
+            #region 'Code1'
+
+            //UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
+            //Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
+            //var url = urlbuilder.Path;
+            //
+            //yield return CreatePageHit(responseItem, url);
+
+            #endregion
+
+            #region 'Code2'
+
+            //var contentSearchHandler = ServiceLocator.Current.GetInstance<ContentSearchHandler>();
+            //var content = contentSearchHandler.GetContent<IContent>(responseItem);
+            //if (IsVisible(content))
+            //{
+            //    UrlResolver resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            //    var url = resolver.GetUrl(content.ContentLink);
+
+            //    yield return CreatePageHit(responseItem, url);
+            //}
+
+            #endregion
+
+            #region 'Code3'
+
             var contentSearchHandler = ServiceLocator.Current.GetInstance<ContentSearchHandler>();
             var content = contentSearchHandler.GetContent<PageData>(responseItem);
 
-            if (/*IsVisible(content)*/ content.VisibleInMenu)
+            if (content.VisibleInMenu)
             {
-                //UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
-                //Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
-                //var url = urlbuilder.Path;
-
-                //UrlResolver resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-                //var url = resolver.GetUrl(content.ContentLink);
-
                 var url = UrlResolver.Current.GetUrl(content.ContentLink);
-
                 yield return CreatePageHit(responseItem, url);
             }
-
+            #endregion
         }
 
         private bool IsVisible(IContent content)
