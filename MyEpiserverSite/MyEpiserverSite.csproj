@@ -278,6 +278,7 @@
     <Compile Include="Models\Pages\SitePageData.cs" />
     <Compile Include="Models\Pages\StandardPage.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
+    <Compile Include="Models\ViewModels\CreateContentViewModel.cs" />
     <Compile Include="Models\ViewModels\IPageViewModel.cs" />
     <Compile Include="Models\ViewModels\PageViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchPageViewModel.cs" />
