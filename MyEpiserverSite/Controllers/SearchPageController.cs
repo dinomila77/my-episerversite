@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ using EPiServer.Search;
 using EPiServer.Search.Queries;
 using EPiServer.Search.Queries.Lucene;
 using EPiServer.Security;
+using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
 using EPiServer.Web.Routing;
@@ -31,16 +33,21 @@ namespace MyEpiserverSite.Controllers
             {
                 SearchedQuery = q
             };
-            
+
+            var watch = new Stopwatch();
+
             if (!string.IsNullOrWhiteSpace(q))
             {
+                watch.Start();
                 var hits = Search(q.Trim(),
                     new[] { SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot },
                     ControllerContext.HttpContext,
-                    currentPage.LanguageID, 
+                    currentPage.LanguageID,
                     MaxResults);
 
-                model.PageHits = hits.ToPagedList(page,2);
+                model.PageHits = hits.ToPagedList(page, 2);
+                watch.Stop();
+                var ms = watch.ElapsedMilliseconds;
             }
             if (Request.IsAjaxRequest())
             {
@@ -59,10 +66,29 @@ namespace MyEpiserverSite.Controllers
 
         private IEnumerable<SearchPageViewModel.SearchHit> CreateUrl(IndexResponseItem responseItem)
         {
-            UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
-            Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
-            var url = urlbuilder.Path;
-            yield return CreatePageHit(responseItem,url);
+            var contentSearchHandler = ServiceLocator.Current.GetInstance<ContentSearchHandler>();
+            var content = contentSearchHandler.GetContent<PageData>(responseItem);
+
+            if (/*IsVisible(content)*/ content.VisibleInMenu)
+            {
+                //UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
+                //Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
+                //var url = urlbuilder.Path;
+
+                //UrlResolver resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+                //var url = resolver.GetUrl(content.ContentLink);
+
+                var url = UrlResolver.Current.GetUrl(content.ContentLink);
+
+                yield return CreatePageHit(responseItem, url);
+            }
+
+        }
+
+        private bool IsVisible(IContent content)
+        {
+            var visible = content.Property.Get("PageVisibleInMenu").Value;
+            return visible.Equals(true);
         }
 
         private SearchPageViewModel.SearchHit CreatePageHit(IndexResponseItem item,string url)
