@@ -5,22 +5,36 @@
 
 @if (Model.PageHits != null)
 {
-    <p>Hits = @Model.PageHits.TotalItemCount</p>
-    <div class="pagedList">
-        @*@Html.PagedListPager(Model.PageHits, page => Url.Action("Index","SearchPage", new { page,q = @Model.SearchedQuery}), PagedListRenderOptions.MinimalWithItemCountText)*@
-        @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new { page, q = @Model.SearchedQuery }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() {HttpMethod = "get", UpdateTargetId = "searchResults" }))
-
+    <div class="row">
+        <div class="bg-info">
+            <h2>Search results</h2>
+            <p>
+                Your search for <i>@Model.SearchedQuery</i> resulted in @Model.PageHits.TotalItemCount hits.
+            </p>
+        </div>
     </div>
 
-    foreach (var item in Model.PageHits)
-    {
+    
+
+    <div class="row">
         <div>
-            <a href="@item.Url">
-                <h3>@item.Title</h3>
-            </a>
-            <hr />
+            @foreach (var item in Model.PageHits)
+            {
+                <div>
+                    <a href="@item.Url">
+                        <h3>@item.Title</h3>
+                    </a>
+                    <hr/>
+                </div>
+            }
         </div>
-    }
+        <div class="pagedList">
+            @*@Html.PagedListPager(Model.PageHits, page => Url.Action("Index","SearchPage", new { page,q = @Model.SearchedQuery}), PagedListRenderOptions.MinimalWithItemCountText)*@
+            @Html.PagedListPager(Model.PageHits, page => Url.Action("Index", new { page, q = @Model.SearchedQuery }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "searchResults" }))
+
+        </div>
+    </div>
+    
 }
 
 

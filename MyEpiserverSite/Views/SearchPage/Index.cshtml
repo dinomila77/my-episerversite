@@ -10,7 +10,7 @@
 
 
 <div class="row">
-    <div class="span8,search-form">
+    <div class="form-control-static">
         @*We use GET to submit the form to enable bookmarking etc of search results.  However, as GET will remove other
             query string values not in the form we can't use that in edit mode.*@
 
@@ -22,14 +22,15 @@
                 }
             }*@
         @{
-            using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults" }))
+            using (Ajax.BeginForm(new AjaxOptions {HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults"}))
             {
-                <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery" />
-                <input type="submit" tabindex="2" class="btn" value="Search" />
+                <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery"/>
+                <input type="submit" tabindex="2" class="btn" value="Search"/>
             }
         }
     </div>
 </div>
+
 <div id="searchResults">
     @Html.Partial("_SearchResults", Model)
 </div>
