@@ -82,7 +82,7 @@ namespace MyEpiserverSite.Controllers
                     IContentRepository contentRepository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
                     StandardPage standardPage = contentRepository.GetDefault<StandardPage>(parent);
 
-                    standardPage.PageName = $"Test page{i}";
+                    standardPage.PageName = $"Generated page{i}";
                     standardPage.Introduction = $"{model.Text}";
 
                     contentRepository.Save(standardPage, SaveAction.Publish);
