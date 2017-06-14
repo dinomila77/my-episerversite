@@ -37,29 +37,57 @@ namespace MyEpiserverSite.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult SubmitForm()
-        {
-            return PartialView("CreateContent");
-        }
+        //[HttpGet]
+        //public ActionResult SubmitForm()
+        //{
+        //    return PartialView("CreateContent");
+        //}
 
-        [HttpPost]
-        public ActionResult SubmitForm(UserBasicViewModel model, CreateContentPage currentPage)
-        { 
-            if (!ModelState.IsValid) return PartialView("CreateContent",model);
-            //if (currentPage.ParentId == null) return PartialView("CreateContent", model);
+        //[HttpPost]
+        //public ActionResult SubmitForm(UserBasicViewModel model, CreateContentPage currentPage)
+        //{ 
+        //    if (!ModelState.IsValid) return PartialView("CreateContent",model);
+        //    //if (currentPage.ParentId == null) return PartialView("CreateContent", model);
+        //    try
+        //    {
+        //        ContentReference parent = currentPage.ParentId;
+        //        IContentRepository contentRepository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
+        //        StandardPage standardPage = contentRepository.GetDefault<StandardPage>(parent);
+
+        //        standardPage.PageName = "New page";
+        //        standardPage.Introduction = $"{model.Email} {model.PersonalNumber}";
+
+        //        contentRepository.Save(standardPage,SaveAction.Publish);
+        //        ModelState.Clear();
+        //        TempData["success"] = true;
+        //        return PartialView("CreateContent");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError("error", "Something went wrong... " + ex.Message);
+        //        return PartialView("CreateContent");
+        //    }
+        //}
+
+        //[HttpPost]
+        public ActionResult SubmitForm(CreateContentViewModel model, CreateContentPage currentPage, string btnCreate)
+        {
+            if (btnCreate == null) return PartialView("CreateContent");
+            int nrOfPages = 10;
             try
             {
-                ContentReference parent = currentPage.ParentId;
-                IContentRepository contentRepository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
-                StandardPage standardPage = contentRepository.GetDefault<StandardPage>(parent);
+                for (int i = 1; i <= nrOfPages; i++)
+                {
+                    ContentReference parent = currentPage.ParentId;
+                    IContentRepository contentRepository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
+                    StandardPage standardPage = contentRepository.GetDefault<StandardPage>(parent);
 
-                standardPage.PageName = "New page";
-                standardPage.Introduction = $"{model.Email} {model.PersonalNumber}";
+                    standardPage.PageName = $"Test page{i}";
+                    standardPage.Introduction = $"{model.Text}";
 
-                contentRepository.Save(standardPage,SaveAction.Publish);
-                ModelState.Clear();
-                TempData["success"] = true;
+                    contentRepository.Save(standardPage, SaveAction.Publish);
+                }
+                TempData["success"] = $"{nrOfPages}";
                 return PartialView("CreateContent");
             }
             catch (Exception ex)
