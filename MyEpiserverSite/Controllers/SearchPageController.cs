@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using EPiServer;
@@ -77,11 +78,35 @@ namespace MyEpiserverSite.Controllers
 
         private SearchPageViewModel.SearchHit CreatePageHit(IndexResponseItem item,string url)
         {
+            string excerpt = string.Empty;
+            if (item.DisplayText.Length > 0)
+            {
+                excerpt = Truncate(item);
+            }
+            
             return new SearchPageViewModel.SearchHit
             {
                 Title = item.Title,
-                Url = url              
+                Url = url,
+                Excerpt = excerpt
             };
+        }
+
+        private string Truncate(IndexResponseItem item)
+        {
+            
+            string res = string.Empty;
+            string[] words = item.DisplayText.Split(' ');
+
+            if (words.Length < 25)
+            {
+                return item.DisplayText;
+            }
+            for (int i = 0; i < 25; i++)
+            {
+                res += words[i] + " ";
+            }
+            return res;
         }
 
         private IQueryExpression CreateQuery(string searchText, IEnumerable<ContentReference> searchRoots, HttpContextBase context, string languageBranch)
