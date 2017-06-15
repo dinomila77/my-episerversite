@@ -12,6 +12,7 @@ using EPiServer.Search;
 using EPiServer.Search.Queries;
 using EPiServer.Search.Queries.Lucene;
 using EPiServer.Security;
+using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
 using EPiServer.Web.Routing;
@@ -59,10 +60,19 @@ namespace MyEpiserverSite.Controllers
 
         private IEnumerable<SearchPageViewModel.SearchHit> CreateUrl(IndexResponseItem responseItem)
         {
-            UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
-            Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
-            var url = urlbuilder.Path;
-            yield return CreatePageHit(responseItem,url);
+            #region 'Urlbuilder'
+            //UrlBuilder urlbuilder = new UrlBuilder(responseItem.Uri);
+            //Global.UrlRewriteProvider.ConvertToExternal(urlbuilder, responseItem, System.Text.Encoding.UTF8);
+            //var url = urlbuilder.Path;
+            #endregion
+
+            var contentSearchHandler = ServiceLocator.Current.GetInstance<ContentSearchHandler>();
+            var content = contentSearchHandler.GetContent<PageData>(responseItem);
+            //if (content.VisibleInMenu)
+            {
+                var url = UrlResolver.Current.GetUrl(content.ContentLink);
+                yield return CreatePageHit(responseItem, url);
+            }
         }
 
         private SearchPageViewModel.SearchHit CreatePageHit(IndexResponseItem item,string url)
