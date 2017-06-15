@@ -43,9 +43,10 @@ namespace MyEpiserverSite.Controllers
                     },
                     ControllerContext.HttpContext,
                     currentPage.LanguageID, 
-                    MaxResults).ToPagedList(page, 2);
+                    MaxResults).ToList();
+                //Ako ne dodam .ToList(); na kraju CreateUrl radi 8 puta za prvu stranicu, 10 za drugu, 12 za trecu. Zasto?
 
-                model.PageHits = hits;
+                model.PageHits = hits.ToPagedList(page,2);
             }
             if (Request.IsAjaxRequest())
             {
