@@ -37,12 +37,15 @@ namespace MyEpiserverSite.Controllers
             if (!string.IsNullOrWhiteSpace(q))
             {
                 var hits = Search(q.Trim(),
-                    new[] { SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot },
+                    new[]
+                    {
+                        SiteDefinition.Current.StartPage, SiteDefinition.Current.GlobalAssetsRoot, SiteDefinition.Current.SiteAssetsRoot
+                    },
                     ControllerContext.HttpContext,
                     currentPage.LanguageID, 
-                    MaxResults);
+                    MaxResults).ToPagedList(page, 2);
 
-                model.PageHits = hits.ToPagedList(page,2);
+                model.PageHits = hits;
             }
             if (Request.IsAjaxRequest())
             {
