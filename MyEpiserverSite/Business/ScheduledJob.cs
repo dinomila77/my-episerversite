@@ -42,13 +42,16 @@ namespace MyEpiserverSite.Business
 
         public override string Execute()
         {
+            #region
             //OnStatusChanged(String.Format("Starting execution of {0}", this.GetType()));
-            //var standardPages = ContentLoader.Service.GetChildren<PageData>(ContentReference.StartPage);
-            var startPages = ContentLoader.Service.GetChildren<StartPage>(ContentReference.RootPage);
-            var page = startPages.Select(s => s.ContentLink).FirstOrDefault();
+            //var startPages = ContentLoader.Service.GetChildren<StartPage>(ContentReference.RootPage);
+            //var page = startPages.Select(s => s.ContentLink).FirstOrDefault();
+            //var standardPages = ContentLoader.Service.GetChildren<StandardPage>(page).Where(p=> p.PageTypeName == "StandardPage");
+            #endregion
 
-            var standardPages = ContentLoader.Service.GetChildren<StandardPage>(page).Where(p=> p.PageTypeName == "StandardPage");
+            var standardPages = ContentLoader.Service.GetChildren<StandardPage>(ContentReference.StartPage);
             int pageCount = standardPages.Count();
+
             foreach (var spage in standardPages)
             {
                 var children = ContentLoader.Service.GetChildren<StandardPage>(spage.ContentLink);
@@ -59,12 +62,11 @@ namespace MyEpiserverSite.Business
             }
 
             _text = $"The site has {pageCount} standard pages.";
-
             var path = @"C:\Users\Shkomi\Documents\Temp\epischeduledjobs.log";
             var log = PersistenceUtility.TextToFile(_text);
             File.AppendAllLines(path,log);
 
-            Thread.Sleep(5000); 
+            //Thread.Sleep(5000); 
             if (_stopSignaled)
             {
                 return "Stop of job was called";
