@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using Castle.Core.Internal;
 using EPiServer;
@@ -53,6 +54,7 @@ namespace MyEpiserverSite.Business
             var log = PersistenceUtility.TextToFile(_text);
             File.AppendAllLines(path,log);
 
+            Thread.Sleep(5000); 
             if (_stopSignaled)
             {
                 return "Stop of job was called";
