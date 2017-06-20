@@ -48,7 +48,17 @@ namespace MyEpiserverSite.Business
             var page = startPages.Select(s => s.ContentLink).FirstOrDefault();
 
             var standardPages = ContentLoader.Service.GetChildren<StandardPage>(page).Where(p=> p.PageTypeName == "StandardPage");
-            _text = $"The site has {standardPages.Count()} standard pages.";
+            int pageCount = standardPages.Count();
+            foreach (var spage in standardPages)
+            {
+                var children = ContentLoader.Service.GetChildren<StandardPage>(spage.ContentLink);
+                if (children.Any())
+                {
+                    pageCount += children.Count();
+                }
+            }
+
+            _text = $"The site has {pageCount} standard pages.";
 
             var path = @"C:\Users\Shkomi\Documents\Temp\epischeduledjobs.log";
             var log = PersistenceUtility.TextToFile(_text);
