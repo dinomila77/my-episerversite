@@ -256,6 +256,7 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
+    <Compile Include="Business\ScheduledJob.cs" />
     <Compile Include="Controllers\ArticlePageController.cs" />
     <Compile Include="Controllers\CreateContentPageController.cs" />
     <Compile Include="Controllers\DefaultPageController.cs" />
@@ -287,7 +288,6 @@
     <Compile Include="Utilities\PersistenceUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Business\" />
     <Folder Include="Models\Properties\" />
     <Folder Include="Static\" />
   </ItemGroup>
