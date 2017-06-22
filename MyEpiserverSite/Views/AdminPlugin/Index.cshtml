@@ -1,4 +1,5 @@
 ﻿@using Castle.Core.Internal
+@using EPiServer.Core
 @model MyEpiserverSite.Models.ViewModels.CreateContentViewModel
 
 @{
@@ -7,29 +8,33 @@
 
 <div>
     @Html.DisplayFor(m => m.Description)    
-    @*@Html.PropertyFor(m => m.ParentId)*@
 </div>
 
 <div>
     @{
         using (Html.BeginForm())
         {
-            <div>
-                @*@Html.DropDownListFor(m => m.Pages, new SelectList(Model.Pages.Select(p => p.ContentLink)), "Select page")*@
-                @*@Html.DropDownListFor(m => m.ParentId,new SelectList(Model.Pages.Select(p => p.ContentLink)), "Select page")*@
-                @*@Html.DropDownListFor(m => m.ParentId, new SelectList(Model.Pages, Model.ParentId), "Select Page")*@
-                @Html.DropDownListFor(m => m.ParentId, new SelectList(Model.Pages,"ContentLink", "PageName"), "Select Page") 
+            @*@Html.ValidationSummary(false, "", new {@class = "text-danger"})*@
+
+            <div id="languageId">
+                @Html.DropDownListFor(m => m.Language, new SelectList(Model.Languages.Select(l => l.Culture), "Select Language"))
             </div>
+
+            <div id ="pageId">
+                @Html.DropDownListFor(m => m.ParentId, new SelectList(Model.Pages, "ContentLink", "PageName"), "Select Page")
+            </div>
+
             <div>
                 @Html.TextAreaFor(m => m.Text)
             </div>
-            
+
             <div>
-                <input type="submit" value="Create" name="btnCreate" class="btn btn-default" />
-            </div>          
+                <input type="submit" value="Create" name="btnCreate" class="btn btn-default"/>
+            </div>
             <div>
                 @TempData["success"]
             </div>
         }
     }
 </div>
+

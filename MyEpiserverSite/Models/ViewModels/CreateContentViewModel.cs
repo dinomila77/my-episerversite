@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
+using EPiServer.DataAnnotations;
 using EPiServer.Web;
+using MyEpiserverSite.Models.Pages;
 
 namespace MyEpiserverSite.Models.ViewModels
 {
@@ -14,6 +18,7 @@ namespace MyEpiserverSite.Models.ViewModels
 
         [Required]
         public string Text { get; set; }
+        
         [Required]
         public ContentReference ParentId { get; set; }
 
@@ -21,5 +26,8 @@ namespace MyEpiserverSite.Models.ViewModels
        
         public IEnumerable<PageData> Pages { get; set; }
 
+        public IEnumerable<LanguageBranch> Languages { get; set; }
+
+        public CultureInfo Language { get; set; }
     }
 }

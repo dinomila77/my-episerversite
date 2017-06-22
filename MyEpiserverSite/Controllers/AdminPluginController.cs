@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAccess;
+using EPiServer.Globalization;
 using EPiServer.PlugIn;
 using MyEpiserverSite.Models.Pages;
 using MyEpiserverSite.Models.ViewModels;
@@ -27,70 +30,56 @@ namespace MyEpiserverSite.Controllers
 
         private readonly IContentLoader _contentLoader;
         private readonly IContentRepository _contentRepository;
+        private readonly ILanguageBranchRepository _languageBranchRepository;
 
-        public AdminPluginController(IContentLoader contentLoader, IContentRepository contentRepository)
+        public AdminPluginController(IContentLoader contentLoader, IContentRepository contentRepository, ILanguageBranchRepository languageBranchRepository)
         {
             _contentLoader = contentLoader;
             _contentRepository = contentRepository;
+            _languageBranchRepository = languageBranchRepository;
         }
 
-        public ActionResult Index(string btnCreate)
+        public ActionResult Index()
         {
-            //var desc = _contentLoader.GetDescendents(ContentReference.StartPage);
-            //var model = new CreateContentViewModel
-            //{
-            //    Text = "This is my plugin",
-            //    ContentReferences = desc
-            //};
-            //var reference = new ContentReference(49);
-            //var content = _contentLoader.Get<IContent>(new ContentReference(49));
-            var pages = _contentLoader.GetChildren<PageData>(ContentReference.StartPage);
+            var pages = _contentLoader.GetChildren<StandardPage>(ContentReference.StartPage /*, CultureInfo.GetCultureInfo("sv")*/ );
+            var languages = _languageBranchRepository.ListEnabled();
+
             var model = new CreateContentViewModel
             {
                 Description = "This is my plugin",
                 Pages = pages,
-                //ParentId = reference
+                Languages = languages
             };
-
-            //if (btnCreate != null)
-            //{
-            //    Create(model);
-            //}
-
             return View("Index", model);
         }
 
         [HttpPost]
         public ActionResult Index(CreateContentViewModel model)
         {
-            
-
+           
             if (ModelState.IsValid)
-            {                
-                var parent = model.ParentId;
-                StandardPage standardPage = _contentRepository.GetDefault<StandardPage>(parent);
+            {
+                try
+                {
+                    var parent = model.ParentId;
+                    var cultureInfo = model.Language;
+                    StandardPage standardPage = _contentRepository.GetDefault<StandardPage>(parent,cultureInfo);
 
-                standardPage.PageName = "Plugin page";
-                standardPage.Introduction = model.Text;
-                _contentRepository.Save(standardPage, SaveAction.Publish);
-                TempData["success"] = "Page created!";
+                    standardPage.PageName = "Plugin page";
+                    standardPage.Introduction = model.Text;
+                    _contentRepository.Save(standardPage, SaveAction.Publish);
+                    TempData["success"] = "Page created!";
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("error",ex.Message);
+                    throw;
+                }
+                
             }
 
             return RedirectToAction("Index");
             //return View("Index", model);
         }
-
-        //public void Create(CreateContentViewModel model)
-        //{
-        //    //var parent = model.Pages.Select(c => c.ContentLink);
-
-        //    ContentReference parent = model.ParentId;
-        //    StandardPage standardPage = _contentRepository.GetDefault<StandardPage>(parent);
-
-        //    standardPage.PageName = "Plugin page";
-        //    standardPage.Introduction = model.Text;
-        //    _contentRepository.Save(standardPage, SaveAction.Publish);
-        //    TempData["success"] = "Page created!";
-        //}
     }
 }
