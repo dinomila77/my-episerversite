@@ -1,24 +1,14 @@
 ﻿@using Castle.Core.Internal
 @model MyEpiserverSite.Models.ViewModels.CreateContentViewModel
 
-@*@model MyEpiserverSite.Models.ViewModels.PageViewModel<MyEpiserverSite.Models.Pages.CreateContentPage>*@
 @{
     Layout = null;
 }
 
-@*<div>
-    @Html.PropertyFor(m => m.CurrentPage.Introduction)
-    @Html.DisplayFor(m => m.CurrentPage.ParentId)
-</div>*@
-
-@*<p>@Model.Text</p>*@
-
 <div>
-    @Html.DisplayFor(m => m.Description)
-    
+    @Html.DisplayFor(m => m.Description)    
     @*@Html.PropertyFor(m => m.ParentId)*@
 </div>
-
 
 <div>
     @{
@@ -26,7 +16,9 @@
         {
             <div>
                 @*@Html.DropDownListFor(m => m.Pages, new SelectList(Model.Pages.Select(p => p.ContentLink)), "Select page")*@
-                @Html.DropDownListFor(m => m.ParentId,new SelectList(Model.Pages.Select(p => p.ContentLink)), "Select page")
+                @*@Html.DropDownListFor(m => m.ParentId,new SelectList(Model.Pages.Select(p => p.ContentLink)), "Select page")*@
+                @*@Html.DropDownListFor(m => m.ParentId, new SelectList(Model.Pages, Model.ParentId), "Select Page")*@
+                @Html.DropDownListFor(m => m.ParentId, new SelectList(Model.Pages,"ContentLink", "PageName"), "Select Page") 
             </div>
             <div>
                 @Html.TextAreaFor(m => m.Text)
@@ -41,9 +33,3 @@
         }
     }
 </div>
-@*@{
-    foreach (var content in Model.ContentReferences)
-    {
-        <p>@content.ID</p>
-    }
-}*@
