@@ -1,6 +1,49 @@
-﻿@model MyEpiserverSite.Models.ViewModels.CreateContentViewModel
+﻿@using Castle.Core.Internal
+@model MyEpiserverSite.Models.ViewModels.CreateContentViewModel
+
+@*@model MyEpiserverSite.Models.ViewModels.PageViewModel<MyEpiserverSite.Models.Pages.CreateContentPage>*@
 @{
     Layout = null;
 }
 
-<p>@Model.Text</p>
+@*<div>
+    @Html.PropertyFor(m => m.CurrentPage.Introduction)
+    @Html.DisplayFor(m => m.CurrentPage.ParentId)
+</div>*@
+
+@*<p>@Model.Text</p>*@
+
+<div>
+    @Html.DisplayFor(m => m.Description)
+    
+    @*@Html.PropertyFor(m => m.ParentId)*@
+</div>
+
+
+<div>
+    @{
+        using (Html.BeginForm())
+        {
+            <div>
+                @*@Html.DropDownListFor(m => m.Pages, new SelectList(Model.Pages.Select(p => p.ContentLink)), "Select page")*@
+                @Html.DropDownListFor(m => m.ParentId,new SelectList(Model.Pages.Select(p => p.ContentLink)), "Select page")
+            </div>
+            <div>
+                @Html.TextAreaFor(m => m.Text)
+            </div>
+            
+            <div>
+                <input type="submit" value="Create" name="btnCreate" class="btn btn-default" />
+            </div>          
+            <div>
+                @TempData["success"]
+            </div>
+        }
+    }
+</div>
+@*@{
+    foreach (var content in Model.ContentReferences)
+    {
+        <p>@content.ID</p>
+    }
+}*@
