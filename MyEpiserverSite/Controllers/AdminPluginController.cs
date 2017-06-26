@@ -22,12 +22,6 @@ namespace MyEpiserverSite.Controllers
             )]
     public class AdminPluginController : Controller
     {
-        //public ActionResult Index(CreateContentPage currentPage)
-        //{
-        //    var model = PageViewModel.Create(currentPage);
-        //    return View("Index",model);
-        //}
-
         private readonly IContentLoader _contentLoader;
         private readonly IContentRepository _contentRepository;
         private readonly ILanguageBranchRepository _languageBranchRepository;
@@ -55,8 +49,7 @@ namespace MyEpiserverSite.Controllers
 
         [HttpPost]
         public ActionResult Index(CreateContentViewModel model)
-        {
-           
+        {          
             if (ModelState.IsValid)
             {
                 try
@@ -74,12 +67,9 @@ namespace MyEpiserverSite.Controllers
                 {
                     ModelState.AddModelError("error",ex.Message);
                     throw;
-                }
-                
+                }               
             }
-
             return RedirectToAction("Index");
-            //return View("Index", model);
         }
     }
 }
