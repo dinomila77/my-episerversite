@@ -1,4 +1,6 @@
-﻿@using EPiServer.Core
+﻿@using EPiServer
+@using EPiServer.Core
+@using EPiServer.ServiceLocation
 @using EPiServer.Web.Mvc.Html
 @using MyEpiserverSite.Models.ViewModels
 @using MyEpiserverSite.Models.Pages
@@ -11,3 +13,19 @@
     @Html.PropertyFor(m => m.CurrentPage.MainContentArea)
     @Html.PropertyFor(m => m.CurrentPage.Image)
 </div>
+
+@{
+    var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+    var childPages = contentLoader.GetChildren<PageData>(Model.CurrentPage.ContentLink);
+
+    if (childPages.Any())
+    {
+        <hr />
+        foreach (var child in childPages)
+        {
+            <div class="col-lg-offset-1">
+                <h4><a href="@Url.ContentUrl(child.ContentLink)">@child.PageName</a></h4>
+            </div>
+        }
+    }
+}
