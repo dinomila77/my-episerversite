@@ -13,17 +13,10 @@
     
     @if (TempData["success"] != null)
     {
-        //var repository = ServiceLocator.Current.GetInstance<IContentRepository>();
-        //var contentReference = new ContentReference(25);
-        //var page2 = repository.Get<PageData>(contentReference);
-
-        var pageRef = new PageReference(25);
-        var contentRepository = ServiceLocator.Current.GetInstance<IContentLoader>();
-        var page = contentRepository.Get<PageData>(pageRef);
-
+        var currentPage = TempData["page"] as PageData;
         <hr />
-        <p>Thank you for your submission.</p>
-        <a href="@page.LinkURL">Add another user</a>
+        <p>Thank you for your submission!</p>
+        <a href="@Url.ContentUrl(currentPage.ContentLink)">Add another user</a>
     }
     else
     {
