@@ -9,17 +9,16 @@
 
 @model MyEpiserverSite.Controllers.UserBlockController
 
-<div id="newUserForm">
-    
-    @if (TempData["success"] != null)
-    {
-        var currentPage = TempData["page"] as PageData;
-        <hr />
-        <p>Thank you for your submission!</p>
-        <a href="@Url.ContentUrl(currentPage.ContentLink)">Add another user</a>
-    }
-    else
-    {
+@if (TempData["success"] != null)
+{
+    var currentPage = TempData["page"] as PageData;
+    <hr />
+    <p><strong>Thank you for your submission!</strong></p>
+    <a href="@Url.ContentUrl(currentPage.ContentLink)">Add another user</a>
+}
+else
+{
+    <div id="newUserForm">
         @Html.Partial("_UserBasic")
-    }
-</div>
+    </div>
+}
