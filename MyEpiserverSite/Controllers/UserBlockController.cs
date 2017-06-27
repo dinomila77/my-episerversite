@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using EPiServer;
-using EPiServer.Core;
-using EPiServer.Framework.Serialization.Json.Internal;
-using EPiServer.ServiceLocation;
-using EPiServer.Web;
 using EPiServer.Web.Mvc;
-using EPiServer.Web.Routing;
 using MyEpiserverSite.Models.Blocks;
 using MyEpiserverSite.Models.Entities;
 using MyEpiserverSite.Models.ViewModels;
@@ -20,9 +11,19 @@ namespace MyEpiserverSite.Controllers
 {
     public class UserBlockController : BlockController<UserBlock>
     {
+        public void StoreCurrentPage()
+        {
+            var pageRouteHelper = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
+            TempData["page"] = pageRouteHelper.Page;
+        }
+
         public override ActionResult Index(UserBlock currentBlock)
         {
             RemoveUserEntity();
+            if (TempData["success"] == null)
+            {
+                StoreCurrentPage();
+            }
             return PartialView();
         }
 
