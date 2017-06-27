@@ -76,7 +76,6 @@ namespace MyEpiserverSite.Controllers
                     System.IO.File.AppendAllLines(path, lines);
                     //TempData["success"] = "Thank you for your sumbission.";
                     TempData["success"] = true;
-                    RemoveUserEntity();
                     return RedirectToAction("Index");
                 }
             }
