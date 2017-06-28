@@ -11,10 +11,17 @@
 
 @if (TempData["success"] != null)
 {
+    //Denna rad funkar också även om currentPage är null, men bara om man har <a href="@if (currentPage != null){url}" i början. Varför?
+    //var currentPage = TempData["pagesss"] as PageData;
+
     var currentPage = TempData["page"] as PageData;
     <hr />
     <p><strong>Thank you for your submission!</strong></p>
-    <a href="@Url.ContentUrl(currentPage.ContentLink)">Add another user</a>
+
+    <a href="@if (currentPage != null)
+             {
+                 @Url.ContentUrl(currentPage.ContentLink)
+             }">Add another user</a>          
 }
 else
 {
