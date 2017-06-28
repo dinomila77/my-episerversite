@@ -13,15 +13,33 @@
 {
     //Denna rad funkar också även om currentPage är null, men bara om man har <a href="@if (currentPage != null){url}" i början. Varför?
     //var currentPage = TempData["pagesss"] as PageData;
+    //Även ViewData och ViewBag funkar om de är null med checken
 
     var currentPage = TempData["page"] as PageData;
+    var vdata = ViewData["pages"] as PageData;
+    var vbag = ViewBag.pagess as PageData;
     <hr />
     <p><strong>Thank you for your submission!</strong></p>
+    <div>
+        <a href="@if (currentPage != null)
+                 {
+                     @Url.ContentUrl(currentPage.ContentLink)
+                 }">TempData link</a>
+    </div>
 
-    <a href="@if (currentPage != null)
-             {
-                 @Url.ContentUrl(currentPage.ContentLink)
-             }">Add another user</a>          
+    <div>
+        <a href="@if (vdata != null)
+                 {
+                     @Url.ContentUrl(vdata.ContentLink)
+                 }">ViewData link</a>
+    </div>
+
+    <div>
+        <a href="@if (vbag != null)
+                 {
+                     @Url.ContentUrl(vbag.ContentLink)
+                 }">ViewBag link</a>
+    </div>
 }
 else
 {

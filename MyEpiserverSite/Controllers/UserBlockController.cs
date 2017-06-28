@@ -15,6 +15,8 @@ namespace MyEpiserverSite.Controllers
         {
             var pageRouteHelper = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
             TempData["page"] = pageRouteHelper.Page;
+            ViewData["pages"] = pageRouteHelper.Page;
+            ViewBag.pagess = pageRouteHelper.Page;
         }
 
         public override ActionResult Index(UserBlock currentBlock)
