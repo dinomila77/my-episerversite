@@ -12,6 +12,7 @@ using EPiServer.Web.Mvc;
 using EPiServer.Web.PageExtensions;
 using MyEpiserverSite.Models.Pages;
 using MyEpiserverSite.Models.ViewModels;
+using PagedList;
 
 namespace MyEpiserverSite.Controllers
 {
@@ -135,7 +136,7 @@ namespace MyEpiserverSite.Controllers
             //        pageNames.Add(childPage.Name);
             //}
 
-            foreach (var s in childPages.Select(n=> n.PageName))
+            foreach (var s in childPages.Select(n=> n.Name))
             {
 
                 var nr = s.Split(delimiterChars);
@@ -147,9 +148,11 @@ namespace MyEpiserverSite.Controllers
             var max2 = myNrs.Select(v => int.Parse(v.Substring(0))).Max();
             var max3 = myNrs.Max(n => int.Parse(n.Substring(0)));
 
+            var max5 = childPages.Select(n => n.Name.Split(delimiterChars,StringSplitOptions.RemoveEmptyEntries)).Select(x=> x[1]).Max(i=> int.Parse(i.Substring(0)));
+
             //var strArray = pageNames.Select(s => s.Split(delimiterChars)).FirstOrDefault();
             //string result = strArray[0] += $"({max2 + 1})";
-            string result = pageName + $"({max2 + 1})";
+            string result = pageName + $"({max5 + 1})";
 
             return result;
         }
