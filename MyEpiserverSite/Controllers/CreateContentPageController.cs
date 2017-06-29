@@ -42,8 +42,8 @@ namespace MyEpiserverSite.Controllers
                 ContentReference parent = currentPage.ParentId;
                 IContentRepository repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
                 var children = repository.GetChildren<PageData>(parent).ToList();
-
                 StandardPage standardPage = repository.GetDefault<StandardPage>(parent);
+
                 //The code example below shows how to define the user defined property MainBody:
                 standardPage.Property["MainBody"].Value = $"<p>{model.Email}</p> <p>{model.PersonalNumber}</p>";
 
@@ -64,7 +64,6 @@ namespace MyEpiserverSite.Controllers
                         }
                     }
 
-    
                     if (tempList.Count == 0)
                     {
                         standardPage.Name = pageName + "(2)";
@@ -72,7 +71,7 @@ namespace MyEpiserverSite.Controllers
                     }
                     else
                     {
-                        standardPage.Name = GetInteger(tempList,pageName,delimiterChars);
+                        standardPage.Name = FindHighestNrInPageNames(tempList,pageName,delimiterChars);
                         repository.Save(standardPage, SaveAction.Publish);
                     }
                 }
@@ -81,7 +80,6 @@ namespace MyEpiserverSite.Controllers
                     standardPage.Name = pageName;
                     repository.Save(standardPage, SaveAction.Publish);
                 }
-
 
                 ModelState.Clear();
                 TempData["success"] = true;
@@ -94,10 +92,9 @@ namespace MyEpiserverSite.Controllers
             }
         }
 
-        private static string GetInteger(List<PageData> childPages, string pageName, char[] delimiterChars)
+        private static string FindHighestNrInPageNames(List<PageData> childPages, string pageName, char[] delimiterChars)
         {
-            var max = childPages.Select(n => n.Name.Split(delimiterChars,StringSplitOptions.RemoveEmptyEntries)).Select(x=> x[1]).Max(i=> int.Parse(i.Substring(0)));
-           
+            var max = childPages.Select(n => n.Name.Split(delimiterChars,StringSplitOptions.RemoveEmptyEntries)).Select(x=> x[1]).Max(i=> int.Parse(i.Substring(0)));       
             return pageName + $"({max + 1})";
         }
     }
