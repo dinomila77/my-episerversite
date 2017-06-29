@@ -53,8 +53,6 @@ namespace MyEpiserverSite.Controllers
                 char[] delimiterChars = { '(', ')' };
                 if (children.Any() && children.Exists(p => p.Name == pageName))
                 {
-                    var tempLists = children.SelectMany(p => p.Name.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries));
-                    
                     var tempList = new List<PageData>();                   
                     foreach (var pageData in children)
                     {
@@ -67,14 +65,14 @@ namespace MyEpiserverSite.Controllers
                     }
 
     
-                    if (tempList.Count == 0/*!HasInteger(tempList)*/)
+                    if (tempList.Count == 0)
                     {
                         standardPage.Name = pageName + "(2)";
                         repository.Save(standardPage, SaveAction.Publish);
                     }
                     else
                     {
-                        standardPage.Name = GetInteger(tempList,pageName);
+                        standardPage.Name = GetInteger(tempList,pageName,delimiterChars);
                         repository.Save(standardPage, SaveAction.Publish);
                     }
                 }
@@ -96,65 +94,11 @@ namespace MyEpiserverSite.Controllers
             }
         }
 
-        private static bool HasInteger(List<PageData> childPages)
+        private static string GetInteger(List<PageData> childPages, string pageName, char[] delimiterChars)
         {
-            foreach (var childPage in childPages)
-            {
-                var charArray = childPage.Name.ToCharArray();
-                foreach (var c in charArray)
-                {
-                    if (char.IsDigit(c))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        private static bool HasInteger(string page)
-        {
-            var charArray = page.ToCharArray();
-            foreach (var c in charArray)
-            {
-                if (char.IsDigit(c))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static string GetInteger(List<PageData> childPages, string pageName)
-        {
-            var myNrs = new List<string>();
-            //var pageNames = new List<string>();
-            char[] delimiterChars = { '(', ')' };
-            //foreach (var childPage in childPages)
-            //{
-            //    if (HasInteger(childPage.Name))
-            //        pageNames.Add(childPage.Name);
-            //}
-
-            foreach (var s in childPages.Select(n=> n.Name))
-            {
-
-                var nr = s.Split(delimiterChars);
-                myNrs.Add(nr[1]);
-
-            }
-
-            var max = myNrs.OrderByDescending(v => int.Parse(v.Substring(0))).First();
-            var max2 = myNrs.Select(v => int.Parse(v.Substring(0))).Max();
-            var max3 = myNrs.Max(n => int.Parse(n.Substring(0)));
-
-            var max5 = childPages.Select(n => n.Name.Split(delimiterChars,StringSplitOptions.RemoveEmptyEntries)).Select(x=> x[1]).Max(i=> int.Parse(i.Substring(0)));
-
-            //var strArray = pageNames.Select(s => s.Split(delimiterChars)).FirstOrDefault();
-            //string result = strArray[0] += $"({max2 + 1})";
-            string result = pageName + $"({max5 + 1})";
-
-            return result;
+            var max = childPages.Select(n => n.Name.Split(delimiterChars,StringSplitOptions.RemoveEmptyEntries)).Select(x=> x[1]).Max(i=> int.Parse(i.Substring(0)));
+           
+            return pageName + $"({max + 1})";
         }
     }
 }
