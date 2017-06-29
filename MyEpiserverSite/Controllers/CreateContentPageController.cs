@@ -37,7 +37,7 @@ namespace MyEpiserverSite.Controllers
             //if (currentPage.ParentId == null) return PartialView("CreateContent", model);
             try
             {
-                string pageName = "New page";
+                string pageName = "New";
                 ContentReference parent = currentPage.ParentId;
                 IContentRepository repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
                 var children = repository.GetChildren<PageData>(parent).ToList();
@@ -52,11 +52,11 @@ namespace MyEpiserverSite.Controllers
                 char[] delimiterChars = { '(', ')' };
                 if (children.Any() && children.Exists(p => p.Name == pageName))
                 {
-                    var s = pageName.Split(delimiterChars);
+                    var tempLists = children.SelectMany(p => p.Name.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries));
 
-                    //var nameList = children.FindAll(p=> p.Name.Split('(').ToString() == s[0]);
-                    //var tempList = children.SelectMany(p => p.Name.Split(delimiterChars,StringSplitOptions.RemoveEmptyEntries));
                     var tempList = new List<PageData>();
+
+                    
                     foreach (var pageData in children)
                     {
                         var split = pageData.Name.Split(delimiterChars);
@@ -67,14 +67,14 @@ namespace MyEpiserverSite.Controllers
                         }
                     }
 
-                    if (!HasInteger(tempList))
+                    if (tempList.Count == 1/*!HasInteger(tempList)*/)
                     {
-                        standardPage.Name = pageName += "(2)";
+                        standardPage.Name = pageName + "(2)";
                         repository.Save(standardPage, SaveAction.Publish);
                     }
                     else
                     {
-                        standardPage.Name = GetInteger(tempList);
+                        standardPage.Name = GetInteger(tempList,pageName);
                         repository.Save(standardPage, SaveAction.Publish);
                     }
                 }
@@ -125,18 +125,18 @@ namespace MyEpiserverSite.Controllers
             return false;
         }
 
-        private static string GetInteger(List<PageData> childPages)
+        private static string GetInteger(List<PageData> childPages, string pageName)
         {
             var myNrs = new List<string>();
-            var myList = new List<string>();
+            //var pageNames = new List<string>();
             char[] delimiterChars = { '(', ')' };
-            foreach (var childPage in childPages)
-            {
-                if (HasInteger(childPage.Name))
-                    myList.Add(childPage.Name);
-            }
+            //foreach (var childPage in childPages)
+            //{
+            //    if (HasInteger(childPage.Name))
+            //        pageNames.Add(childPage.Name);
+            //}
 
-            foreach (var s in myList)
+            foreach (var s in childPages.Select(n=> n.PageName).Where(p=> !p.Equals(pageName)))
             {
 
                 var nr = s.Split(delimiterChars);
@@ -146,8 +146,11 @@ namespace MyEpiserverSite.Controllers
 
             var max = myNrs.OrderByDescending(v => int.Parse(v.Substring(0))).First();
             var max2 = myNrs.Select(v => int.Parse(v.Substring(0))).Max();
-            var strArray = myList.Select(s => s.Split(delimiterChars)).FirstOrDefault();
-            string result = strArray[0] += $"({max2 + 1})";
+            var max3 = myNrs.Max(n => int.Parse(n.Substring(0)));
+
+            //var strArray = pageNames.Select(s => s.Split(delimiterChars)).FirstOrDefault();
+            //string result = strArray[0] += $"({max2 + 1})";
+            string result = pageName + $"({max2 + 1})";
 
             return result;
         }
