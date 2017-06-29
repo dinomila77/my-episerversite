@@ -37,7 +37,7 @@ namespace MyEpiserverSite.Controllers
             //if (currentPage.ParentId == null) return PartialView("CreateContent", model);
             try
             {
-                string pageName = "New";
+                string pageName = "News";
                 ContentReference parent = currentPage.ParentId;
                 IContentRepository repository = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<IContentRepository>();
                 var children = repository.GetChildren<PageData>(parent).ToList();
@@ -53,21 +53,20 @@ namespace MyEpiserverSite.Controllers
                 if (children.Any() && children.Exists(p => p.Name == pageName))
                 {
                     var tempLists = children.SelectMany(p => p.Name.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries));
-
-                    var tempList = new List<PageData>();
-
                     
+                    var tempList = new List<PageData>();                   
                     foreach (var pageData in children)
                     {
                         var split = pageData.Name.Split(delimiterChars);
                         var name = split[0];
-                        if (name == pageName)
+                        if (name == pageName && pageData.Name != pageName)
                         {
                             tempList.Add(pageData);
                         }
                     }
 
-                    if (tempList.Count == 1/*!HasInteger(tempList)*/)
+    
+                    if (tempList.Count == 0/*!HasInteger(tempList)*/)
                     {
                         standardPage.Name = pageName + "(2)";
                         repository.Save(standardPage, SaveAction.Publish);
@@ -136,7 +135,7 @@ namespace MyEpiserverSite.Controllers
             //        pageNames.Add(childPage.Name);
             //}
 
-            foreach (var s in childPages.Select(n=> n.PageName).Where(p=> !p.Equals(pageName)))
+            foreach (var s in childPages.Select(n=> n.PageName))
             {
 
                 var nr = s.Split(delimiterChars);
