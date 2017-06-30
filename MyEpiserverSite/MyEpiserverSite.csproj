@@ -260,12 +260,10 @@
     <Compile Include="Business\DependencyResolverInitialization.cs" />
     <Compile Include="Business\StructureMapDependencyResolver.cs" />
     <Compile Include="Controllers\AdminPluginController.cs" />
-    <Compile Include="Controllers\ArticlePageController.cs" />
     <Compile Include="Controllers\CreateContentPageController.cs" />
     <Compile Include="Controllers\DefaultPageController.cs" />
     <Compile Include="Controllers\PageControllerBase.cs" />
     <Compile Include="Controllers\SearchPageController.cs" />
-    <Compile Include="Controllers\StandardPageController.cs" />
     <Compile Include="Controllers\StartPageController.cs" />
     <Compile Include="Controllers\UserBlockController.cs" />
     <Compile Include="Global.asax.cs">
