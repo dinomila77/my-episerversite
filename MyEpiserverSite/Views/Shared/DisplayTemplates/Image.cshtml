@@ -2,19 +2,17 @@
 @using EPiServer.ServiceLocation
 @using EPiServer.Web.Routing
 @using MyEpiserverSite.Models.Media
-
 @model EPiServer.Core.ContentReference
 
 @{
-    var df = ServiceLocator.Current.GetInstance<IContentRepository>();
     ImageFile image = null;
     if (Model != null)
     {
-        image = df.Get<ImageFile>(Model);
+        image = ServiceLocator.Current.GetInstance<IContentLoader>().Get<ImageFile>(Model);
     }
 }
 @if (image != null)
 {
-    <img src="@Url.ContentUrl(Model)" alt="@(image.Copyright ?? string.Empty)" style="height: 100%; width: 100%; object-fit: contain"/>
+    <img src="@Url.ContentUrl(Model)" alt="@(image.Copyright ?? string.Empty)" style="height: 100%; width: 100%; object-fit: contain" />
     @*<img src="@UrlResolver.Current.GetUrl(image.ContentLink)" alt="@image.Copyright" />*@
 }
