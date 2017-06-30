@@ -1,13 +1,4 @@
-﻿@using EPiServer
-@using EPiServer.Core
-@using EPiServer.Data.Dynamic
-@using EPiServer.Editor
-@using EPiServer.Web.Mvc.Html
-@using EPiServer.Web.Routing
-@using MyEpiserverSite.Controllers
-@using PagedList.Mvc
-@model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
-
+﻿@model MyEpiserverSite.Models.ViewModels.SearchPageViewModel
 
 <div class="row">
     <div class="form-control-static">
@@ -22,10 +13,10 @@
                 }
             }*@
         @{
-            using (Ajax.BeginForm(new AjaxOptions {HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults"}))
+            using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults" }))
             {
-                <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery"/>
-                <input type="submit" tabindex="2" class="btn" value="Search"/>
+                <input type="text" tabindex="1" name="q" value="@Model.SearchedQuery" />
+                <input type="submit" tabindex="2" class="btn" value="Search" />
             }
         }
     </div>

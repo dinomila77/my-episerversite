@@ -1,13 +1,10 @@
-﻿@using Castle.Core.Internal
-@using EPiServer.Core
-@model MyEpiserverSite.Models.ViewModels.CreateContentViewModel
-
+﻿@model MyEpiserverSite.Models.ViewModels.CreateContentViewModel
 @{
     Layout = null;
 }
 
 <div>
-    @Html.DisplayFor(m => m.Description)    
+    @Html.DisplayFor(m => m.Description)
 </div>
 
 <div>
@@ -20,7 +17,7 @@
                 @Html.DropDownListFor(m => m.Language, new SelectList(Model.Languages.Select(l => l.Culture), "Select Language"))
             </div>
 
-            <div id ="pageId">
+            <div id="pageId">
                 @Html.DropDownListFor(m => m.ParentId, new SelectList(Model.Pages, "ContentLink", "PageName"), "Select Page")
             </div>
 
@@ -29,7 +26,7 @@
             </div>
 
             <div>
-                <input type="submit" value="Create" name="btnCreate" class="btn btn-default"/>
+                <input type="submit" value="Create" name="btnCreate" class="btn btn-default" />
             </div>
             <div>
                 @TempData["success"]

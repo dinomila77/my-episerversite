@@ -3,11 +3,9 @@
 @using EPiServer.ServiceLocation
 
 @{
-    //var childPages = EPiServer.DataFactory.Instance.GetChildren(ContentReference.StartPage).Where(page => page.VisibleInMenu).OrderBy(date=> date.Created);
     var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
     var childPages = contentLoader.GetChildren<PageData>(ContentReference.StartPage).Where(page => page.VisibleInMenu).OrderBy(date => date.Created);
 }
-
 @foreach (var childPage in childPages)
 {
     <li>

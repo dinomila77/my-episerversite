@@ -1,19 +1,13 @@
-﻿@using EPiServer.Core
-@using EPiServer.Web
-@using EPiServer.Web.Mvc.Html
+﻿@using EPiServer.Web.Mvc.Html
 @using MyEpiserverSite.Models.ViewModels
 @using MyEpiserverSite.Models.Pages
-
 @model PageViewModel<ArticlePage>
 
 <h1 @Html.EditAttributes(x => x.CurrentPage.PageName)>@Model.CurrentPage.PageName</h1>
-<h4>@Html.PropertyFor(m => m.CurrentPage.Introduction)</h4>
-@*<textarea>@Html.DisplayFor(m => m.Introduction)</textarea>*@
-
 <div>
+    <h4>@Html.PropertyFor(m => m.CurrentPage.Introduction)</h4>
+    @*<textarea>@Html.DisplayFor(m => m.Introduction)</textarea>*@
     @Html.PropertyFor(m => m.CurrentPage.MainBody)
     @Html.PropertyFor(x => x.CurrentPage.MainContentArea)
-</div>
-<div>
     @Html.PropertyFor(m => m.CurrentPage.Image)
 </div>

@@ -1,11 +1,7 @@
-﻿@using EPiServer.Core
-@using EPiServer.Web.Mvc.Html
+﻿@using EPiServer.Web.Mvc.Html
 @using MyEpiserverSite.Models.ViewModels
-
 @model PageViewModel<MyEpiserverSite.Models.Pages.StartPage>
-@*@{
-    Layout = "~/Views/Shared/_Root.cshtml";
-}*@
+
 <div>
   @Html.PropertyFor(m => m.CurrentPage.MainBody)
 </div>

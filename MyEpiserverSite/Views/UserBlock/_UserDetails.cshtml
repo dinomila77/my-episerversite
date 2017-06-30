@@ -1,13 +1,4 @@
-﻿@using EPiServer
-@using EPiServer.ServiceLocation
-@model MyEpiserverSite.Models.ViewModels.UserDetailsViewModel
-
-@*@{
-    var pageRouteHelper = ServiceLocator.Current.GetInstance<EPiServer.Web.Routing.IPageRouteHelper>();
-    var currentPage = pageRouteHelper.Page;
-
-    <a href="@currentPage.LinkURL">@currentPage.Name</a>
-}*@
+﻿@model MyEpiserverSite.Models.ViewModels.UserDetailsViewModel
 
 @using (Ajax.BeginForm("UserDetails", "UserBlock", new AjaxOptions { HttpMethod = "post", UpdateTargetId = "newUserForm" }))
 {
