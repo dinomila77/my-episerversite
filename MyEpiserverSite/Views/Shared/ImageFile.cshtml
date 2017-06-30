@@ -1,0 +1,6 @@
+﻿@model MyEpiserverSite.Models.Media.ImageFile
+    
+@if (Model != null)
+{
+    <img src="@Url.ContentUrl(Model.ContentLink)" alt="@Model.Copyright" style="height: 100%; width: 100%; object-fit: contain">
+}

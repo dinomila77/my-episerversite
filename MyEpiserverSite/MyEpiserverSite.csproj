@@ -352,6 +352,7 @@
     <Content Include="Views\SearchPage\Index.cshtml" />
     <Content Include="Views\SearchPage\_SearchResults.cshtml" />
     <Content Include="Views\AdminPlugin\Index.cshtml" />
+    <Content Include="Views\Shared\ImageFile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
