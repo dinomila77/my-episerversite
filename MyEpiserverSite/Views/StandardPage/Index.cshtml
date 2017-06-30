@@ -16,7 +16,7 @@
 
 @{
     var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-    var childPages = contentLoader.GetChildren<PageData>(Model.CurrentPage.ContentLink);
+    var childPages = contentLoader.GetChildren<PageData>(Model.CurrentPage.ContentLink).ToList();
 
     if (childPages.Any())
     {

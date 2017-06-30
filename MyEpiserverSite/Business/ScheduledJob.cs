@@ -44,12 +44,12 @@ namespace MyEpiserverSite.Business
             //var standardPages = ContentLoader.Service.GetChildren<StandardPage>(page).Where(p=> p.PageTypeName == "StandardPage");
             #endregion
 
-            var standardPages = ContentLoader.Service.GetChildren<StandardPage>(ContentReference.StartPage);
+            var standardPages = ContentLoader.Service.GetChildren<StandardPage>(ContentReference.StartPage).ToList();
             int pageCount = standardPages.Count();
 
             foreach (var spage in standardPages)
             {
-                var children = ContentLoader.Service.GetChildren<StandardPage>(spage.ContentLink);
+                var children = ContentLoader.Service.GetChildren<StandardPage>(spage.ContentLink).ToList();
                 if (children.Any())
                 {
                     pageCount += children.Count();
