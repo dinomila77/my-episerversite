@@ -1,9 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using EPiServer.Core;
-using EPiServer.DataAbstraction;
-using EPiServer.DataAnnotations;
-using EPiServer.SpecializedProperties;
+﻿using EPiServer.DataAnnotations;
 
 namespace MyEpiserverSite.Models.Pages
 {

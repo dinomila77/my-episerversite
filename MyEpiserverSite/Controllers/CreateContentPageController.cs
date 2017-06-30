@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
-using EPiServer.DataAbstraction;
 using EPiServer.DataAccess;
 using EPiServer.Framework.DataAnnotations;
-using EPiServer.Web.Mvc;
-using EPiServer.Web.PageExtensions;
 using MyEpiserverSite.Models.Pages;
 using MyEpiserverSite.Models.ViewModels;
-using PagedList;
 
 namespace MyEpiserverSite.Controllers
 {

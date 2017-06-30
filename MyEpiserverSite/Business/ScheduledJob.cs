@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Web;
-using Castle.Core.Internal;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.PlugIn;
 using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
-using ICSharpCode.SharpZipLib.Zip;
 using MyEpiserverSite.Models.Pages;
 using MyEpiserverSite.Utilities;
 
@@ -74,7 +69,5 @@ namespace MyEpiserverSite.Business
 
             return $"The job was executed at {DateTime.Now}";
         }
-
-        
     }
 }

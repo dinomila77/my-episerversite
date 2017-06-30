@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
-using EPiServer.SpecializedProperties;
 using EPiServer.Web;
 
 namespace MyEpiserverSite.Models.Pages
@@ -35,8 +33,8 @@ namespace MyEpiserverSite.Models.Pages
         [UIHint(UIHint.Textarea)]
         public virtual string Introduction { get; set; }
 
-        //[UIHint(UIHint.MediaFile)]
-        //[Display(Name = "Main Image")]
-        //public virtual ContentReference Image { get; set; }
+        [UIHint(UIHint.MediaFile)]
+        [Display(Name = "Media File")]
+        public virtual ContentReference Media { get; set; }
     }
 }

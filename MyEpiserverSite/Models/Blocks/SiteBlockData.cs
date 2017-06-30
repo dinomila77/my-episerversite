@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using EPiServer;
-using EPiServer.Core;
-using EPiServer.DataAbstraction;
-using EPiServer.DataAnnotations;
+﻿using EPiServer.Core;
 
 namespace MyEpiserverSite.Models.Blocks
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyEpiserverSite.Models.Pages;
+﻿using MyEpiserverSite.Models.Pages;
 
 namespace MyEpiserverSite.Models.ViewModels
 {
